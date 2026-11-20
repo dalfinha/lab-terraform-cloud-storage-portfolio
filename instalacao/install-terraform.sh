@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
@@ -8,7 +7,6 @@ TEMP_DIR="$(mktemp -d)"
 PROFILE="$HOME/.bashrc"
 PATH_LINE='export PATH="$HOME/.local/bin:$PATH"'
 
-# Cores
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
@@ -48,7 +46,6 @@ echo "       TERRAFORM INSTALLER"
 echo "======================================"
 echo ""
 
-# Verifica instalação existente
 if command -v terraform >/dev/null 2>&1; then
   CURRENT_VERSION="$(terraform version -json | grep -o '"terraform_version":"[^"]*"' | cut -d '"' -f 4 || true)"
 
@@ -66,7 +63,6 @@ if command -v terraform >/dev/null 2>&1; then
   fi
 fi
 
-# Detecta arquitetura
 log "Detectando arquitetura do sistema..."
 
 case "$(uname -m)" in
@@ -84,7 +80,6 @@ esac
 
 log "Arquitetura identificada: windows_$ARCH"
 
-# Obtém versão
 if [[ "$VERSION" == "latest" ]]; then
   log "Consultando última versão disponível..."
 
@@ -101,11 +96,9 @@ fi
 
 log "Versão selecionada: $VERSION"
 
-# Prepara diretórios
 log "Preparando diretório de instalação..."
 mkdir -p "$INSTALL_DIR"
 
-# Download
 URL="https://releases.hashicorp.com/terraform/${VERSION}/terraform_${VERSION}_windows_${ARCH}.zip"
 
 log "Iniciando download do Terraform..."
@@ -115,7 +108,6 @@ curl -fL --progress-bar "$URL" -o "$TEMP_DIR/terraform.zip"
 
 success "Download concluído."
 
-# Extração
 log "Extraindo pacote..."
 unzip -oq "$TEMP_DIR/terraform.zip" -d "$TEMP_DIR"
 
@@ -126,14 +118,12 @@ fi
 
 success "Extração concluída."
 
-# Instalação
 log "Instalando Terraform em: $INSTALL_DIR"
 
 mv -f "$TEMP_DIR/terraform.exe" "$INSTALL_DIR/terraform.exe"
 
 success "Executável instalado."
 
-# Configura PATH
 log "Configurando PATH do Git Bash..."
 
 touch "$PROFILE"
@@ -147,7 +137,6 @@ fi
 
 export PATH="$INSTALL_DIR:$PATH"
 
-# Validação
 log "Validando instalação..."
 
 if ! command -v terraform >/dev/null 2>&1; then

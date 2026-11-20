@@ -1,9 +1,10 @@
 resource "google_storage_bucket" "static_site" {
-  name          = var.bucket_name
+  name          = "${var.bucket_name}-dev"
   location      = "US"
   force_destroy = true
 
   uniform_bucket_level_access = true
+  
   
   public_access_prevention = "inherited"
 
@@ -28,4 +29,5 @@ resource "google_storage_bucket_object" "website_files" {
   name   = "site-pages/${each.value}"
   bucket = google_storage_bucket.static_site.name
   source = "${path.module}/site-pages/${each.value}"
+  cache_control = "no-cache, max-age=0"
 }

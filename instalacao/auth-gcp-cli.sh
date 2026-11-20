@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
@@ -38,7 +37,6 @@ echo "      GOOGLE CLOUD AUTHENTICATION"
 echo "======================================"
 echo ""
 
-# 1. Localizar Google Cloud CLI
 log "Procurando Google Cloud CLI..."
 
 GCLOUD_BIN=""
@@ -72,7 +70,6 @@ gcloud() {
 
 gcloud version
 
-# 2. Verificar contas autenticadas
 echo ""
 log "Verificando contas autenticadas..."
 
@@ -88,7 +85,6 @@ else
     warning "Login existente será mantido."
 fi
 
-# 3. Configurar projeto
 echo ""
 log "Configurando projeto GCP..."
 
@@ -116,7 +112,6 @@ fi
 gcloud config set project "$PROJECT_ID"
 success "Projeto configurado: $PROJECT_ID"
 
-# 4. Configurar Application Default Credentials
 echo ""
 log "Configurando Application Default Credentials..."
 
@@ -124,7 +119,6 @@ gcloud auth application-default login
 
 success "Credenciais ADC configuradas."
 
-# 5. Configurar projeto de quota
 echo ""
 log "Configurando projeto de quota..."
 
@@ -132,7 +126,6 @@ gcloud auth application-default set-quota-project "$PROJECT_ID"
 
 success "Projeto de quota configurado."
 
-# 6. Validar autenticação
 echo ""
 log "Validando autenticação..."
 
@@ -145,7 +138,6 @@ gcloud auth application-default print-access-token >/dev/null
 
 success "Token ADC válido."
 
-# 7. Persistir PATH
 echo ""
 log "Configurando PATH permanente..."
 

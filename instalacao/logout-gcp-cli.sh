@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
@@ -32,7 +31,6 @@ echo "       GOOGLE CLOUD LOGOUT"
 echo "======================================"
 echo ""
 
-# 1. Localizar Google Cloud CLI
 log "Localizando Google Cloud CLI..."
 
 GCLOUD_BIN=""
@@ -58,7 +56,6 @@ gcloud() {
 
 success "Google Cloud CLI encontrado."
 
-# 2. Confirmar operação
 echo ""
 warning "Esta operação removerá as credenciais locais do GCP."
 read -r -p "Deseja continuar? (y/N): " CONFIRM
@@ -68,7 +65,6 @@ if [[ ! "$CONFIRM" =~ ^[Yy]$ ]]; then
     exit 0
 fi
 
-# 3. Revogar contas autenticadas
 echo ""
 log "Revogando contas autenticadas..."
 
@@ -84,7 +80,6 @@ else
     warning "Nenhuma conta autenticada encontrada."
 fi
 
-# 4. Remover ADC
 echo ""
 log "Removendo Application Default Credentials..."
 
@@ -97,7 +92,6 @@ else
     warning "Arquivo ADC não encontrado."
 fi
 
-# 5. Limpar projeto ativo
 echo ""
 read -r -p "Deseja remover o projeto ativo da configuração? (y/N): " CLEAR_PROJECT
 
@@ -108,7 +102,6 @@ else
     warning "Configuração do projeto mantida."
 fi
 
-# 6. Limpar variáveis de ambiente
 echo ""
 log "Limpando variáveis de ambiente da sessão..."
 
@@ -117,7 +110,6 @@ unset CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE 2>/dev/null || true
 
 success "Variáveis de ambiente removidas da sessão atual."
 
-# 7. Validar logout
 echo ""
 log "Validando logout..."
 

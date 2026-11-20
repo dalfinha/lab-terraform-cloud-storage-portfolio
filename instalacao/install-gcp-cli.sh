@@ -58,7 +58,6 @@ case "$(uname -s)" in
         ;;
 esac
 
-# Detecta instalação existente
 GCLOUD_PATH=""
 
 for DIR in \
@@ -86,7 +85,6 @@ if [[ -n "$GCLOUD_PATH" ]]; then
     fi
 fi
 
-# Download
 INSTALLER="$TEMP_DIR/GoogleCloudSDKInstaller.exe"
 
 log "Baixando instalador oficial..."
@@ -101,7 +99,6 @@ fi
 
 success "Download concluído."
 
-# Valida assinatura
 log "Validando assinatura digital..."
 
 export GCLOUD_INSTALLER="$(cygpath -w "$INSTALLER")"
@@ -117,7 +114,6 @@ powershell.exe -NoProfile -Command '
 
 success "Assinatura validada."
 
-# Instalação
 log "Executando instalador oficial..."
 
 export GCLOUD_INSTALL_DIR="$(cygpath -w "$INSTALL_DIR")"
@@ -141,7 +137,6 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -Command '
 
 success "Instalador finalizado."
 
-# Detecta o caminho real após instalação
 log "Procurando executável gcloud.cmd..."
 
 GCLOUD_BIN=""
@@ -164,14 +159,12 @@ fi
 
 success "Executável encontrado: $GCLOUD_BIN/gcloud.cmd"
 
-# Configura PATH com o diretório real
 log "Configurando PATH do Git Bash..."
 
 PATH_LINE="export PATH=\"$GCLOUD_BIN:\$PATH\""
 
 touch "$PROFILE"
 
-# Remove configurações antigas do mesmo SDK
 sed -i '\|google-cloud-sdk/bin|d' "$PROFILE"
 
 echo "$PATH_LINE" >> "$PROFILE"
@@ -181,7 +174,6 @@ hash -r
 
 success "PATH configurado."
 
-# Validação final
 log "Validando Google Cloud CLI..."
 
 gcloud.cmd version
@@ -199,5 +191,3 @@ echo "2. Execute: gcloud init"
 echo "3. Autentique: gcloud auth application-default login"
 echo ""
 echo "======================================"
-
-bash ./auth-gcp-cli.sh
