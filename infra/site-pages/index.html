@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Site demonstrativo hospedado no Google Cloud Storage.">
+    <title>Cloud Portfolio | Início</title>
+    <link rel="stylesheet" href="site-pages/style.css">
+    <script src="site-pages/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">☁ Cloud Portfolio</a>
+            <span class="status">Online no Google Cloud</span>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <span class="tag">MEU PRIMEIRO LAB GCP</span>
+            <h1>Infraestrutura como código, na prática.</h1>
+            <p>
+                Este site foi publicado automaticamente utilizando
+                Terraform e Google Cloud Storage.
+            </p>
+
+            <a href="https://cloud.google.com/storage"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="button">
+                Conheça o Cloud Storage →
+            </a>
+        </section>
+
+        <section class="cards">
+            <article class="card">
+                <span class="icon">🏗️</span>
+                <h2>Terraform</h2>
+                <p>Infraestrutura declarada e provisionada como código.</p>
+            </article>
+
+            <article class="card">
+                <span class="icon">☁️</span>
+                <h2>Google Cloud</h2>
+                <p>Arquivos hospedados no Cloud Storage.</p>
+            </article>
+
+            <article class="card">
+                <span class="icon">⚙️</span>
+                <h2>Automação</h2>
+                <p>Upload dos arquivos utilizando for_each.</p>
+            </article>
+        </section>
+
+        <p id="message" class="message">
+            Site carregado com sucesso!
+        </p>
+    </main>
+
+    <footer>
+        <p>Laboratório Terraform + GCP | 2026</p>
+    </footer>
+</body>
+</html>
