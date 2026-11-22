@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "static_site" {
-  name          = "${var.bucket_name}-dev"
+  name          = "${var.bucket_name}"
   location      = "US"
   force_destroy = true
 
