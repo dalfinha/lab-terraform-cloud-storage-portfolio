@@ -9,7 +9,7 @@ Ao final do workshop, o participante terá um site hospedado no Google Cloud Sto
 O Terraform cria os seguintes recursos:
 
 - Um bucket no Cloud Storage para hospedar os arquivos estáticos.
-- Dois objetos dentro do bucket: `site-pages/index.html` e `site-pages/404.html`.
+- Objetos no bucket correspondentes aos arquivos da pasta selecionada por `project_folder` (por exemplo, `portfolio/index.html` e `portfolio/404.html`).
 - Permissão pública de leitura para que o conteúdo possa ser acessado pela internet.
 - Configuração do bucket como site estático, usando a página principal e a página de erro.
 
@@ -25,7 +25,10 @@ lab-terraform-cloud-storage-portfolio/
 │   ├── providers.tf
 │   ├── variables.tf
 │   ├── inventories/dev/terraform.tfvars
-│   └── site-pages/
+│   ├── portfolio/
+│   │   ├── index.html
+│   │   └── 404.html
+│   └── supermarket/
 │       ├── index.html
 │       └── 404.html
 └── instalacao/
@@ -42,10 +45,10 @@ flowchart LR
     GCS -->|Página principal| Index[index.html]
     GCS -->|Página inexistente| NotFound[404.html]
     Terraform[Terraform] -->|Cria e configura| GCS
-    Terraform -->|Lê arquivos locais| Paginas[site-pages]
+    Terraform -->|Lê arquivos da pasta selecionada| Paginas[portfolio ou supermarket]
 ```
 
-O bucket recebe os arquivos locais de `infra/site-pages` e os publica em `site-pages/`. O Terraform também concede ao grupo `allUsers` o papel `roles/storage.objectViewer`.
+O valor de `project_folder` seleciona a pasta local dentro de `infra` e também define o prefixo dos objetos no bucket. Por exemplo, com `project_folder = "portfolio"`, os arquivos de `infra/portfolio` são publicados em `portfolio/`. O Terraform também concede ao grupo `allUsers` o papel `roles/storage.objectViewer`.
 
 ## Pré-requisitos
 
@@ -91,24 +94,27 @@ gcloud projects list
 gcloud config set project SEU_PROJECT_ID
 ```
 
-No arquivo `infra/inventories/dev/terraform.tfvars`, substitua o valor de exemplo pelo ID real do projeto:
+No arquivo `infra/inventories/dev/terraform.tfvars`, substitua o valor de exemplo de `project_id` pelo número do projeto GCP, conforme o tipo numérico declarado em `infra/variables.tf`:
 
 ```hcl
-project_id = "seu-project-id"
+project_id = 123456789012
 ```
 
-O nome do bucket é definido pela variável `bucket_name` em `infra/variables.tf`. Como nomes de buckets são únicos globalmente, escolha um prefixo próprio caso o padrão já esteja em uso.
-
-No bucket, o Terraform adiciona o sufixo `-dev` ao nome definido. Por exemplo:
+Nesse mesmo arquivo, substitua o valor de exemplo de `project_folder` pelo nome da pasta do site que deseja publicar. As pastas disponíveis neste repositório são `portfolio` e `supermarket`:
 
 ```hcl
-bucket_name = "meu-portfolio"
+project_folder = "portfolio"
 ```
 
-resulta em:
+Para publicar o outro site, altere o valor para `"supermarket"`. A pasta precisa existir dentro de `infra` e conter os arquivos do site.
 
-```text
-meu-portfolio-dev
+O nome do bucket é definido pela variável `bucket_name` em `infra/variables.tf`. Como nomes de buckets são únicos globalmente, escolha um nome próprio caso o padrão já esteja em uso. O bucket usa exatamente o valor configurado; não é acrescentado automaticamente um sufixo de ambiente.
+
+Exemplo de configuração completa para o ambiente `dev`:
+
+```hcl
+project_id     = 123456789012
+project_folder = "portfolio"
 ```
 
 ## Execução passo a passo
@@ -163,10 +169,10 @@ terraform output
 terraform output -raw website_url
 ```
 
-As URLs importantes são:
+As saídas `website_url` e `not_found_url` usam o valor de `project_folder`. Por exemplo, com `project_folder = "portfolio"`:
 
-- Página principal: `https://storage.googleapis.com/NOME_DO_BUCKET/site-pages/index.html`
-- Página 404: `https://storage.googleapis.com/NOME_DO_BUCKET/site-pages/404.html`
+- Página principal: `https://storage.googleapis.com/NOME_DO_BUCKET/portfolio/index.html`
+- Página 404: `https://storage.googleapis.com/NOME_DO_BUCKET/portfolio/404.html`
 
 ## Como o código funciona
 
@@ -183,21 +189,21 @@ provider "google" {
 
 ### Variáveis
 
-`infra/variables.tf` recebe o nome do bucket e o ID do projeto. O arquivo `terraform.tfvars` fornece valores específicos para o ambiente `dev`.
+`infra/variables.tf` declara `bucket_name`, `project_id` e `project_folder`. O arquivo `infra/inventories/dev/terraform.tfvars` fornece o número do projeto e a pasta do site para o ambiente `dev`. `project_folder` tem como padrão `portfolio`, mas pode ser alterada para outra pasta existente.
 
-Use variáveis permite trocar projeto, bucket ou ambiente sem repetir ou modificar o código principal.
+As variáveis permitem trocar o projeto, o bucket ou a pasta publicada sem modificar os recursos Terraform.
 
 ### Arquivos locais
 
-`infra/locals.tf` usa `fileset` para localizar todos os arquivos dentro de `infra/site-pages`:
+`infra/locals.tf` usa `fileset` para localizar todos os arquivos dentro da pasta escolhida por `project_folder`:
 
 ```hcl
 locals {
-  website_files = fileset("${path.module}/site-pages", "**")
+  website_files = fileset("${path.module}/${var.project_folder}", "**")
 }
 ```
 
-No recurso `google_storage_bucket_object`, `for_each` cria um objeto no bucket para cada arquivo encontrado. Alterações em um arquivo HTML podem ser aplicadas com `terraform apply`.
+No recurso `google_storage_bucket_object`, `for_each` cria um objeto no bucket para cada arquivo encontrado. A origem local e o prefixo no bucket usam o valor de `project_folder`: os arquivos de `infra/portfolio` são armazenados em `portfolio/`, enquanto os arquivos de `infra/supermarket` são armazenados em `supermarket/`.
 
 ### Bucket
 
@@ -216,7 +222,7 @@ Isso permite que visitantes públicos baixem os objetos do bucket sem autentica�
 
 ## Personalização do portfólio
 
-Edite os arquivos em `infra/site-pages`:
+Edite os arquivos na pasta do site que será publicado, por exemplo, `infra/portfolio` ou `infra/supermarket`:
 
 - `index.html`: página principal.
 - `404.html`: página exibida para caminhos inexistentes.
@@ -227,7 +233,7 @@ Depois execute:
 terraform apply -var-file=inventories/dev/terraform.tfvars
 ```
 
-Acontece que o Terraform é usado para gerenciar os arquivos publicados. Como o recurso utiliza `for_each`, novos arquivos adicionados à pasta também podem ser detectados e enviados ao bucket.
+Defina `project_folder` em `infra/inventories/dev/terraform.tfvars` para a pasta escolhida. Como o recurso utiliza `for_each`, novos arquivos adicionados a essa pasta também podem ser detectados e enviados ao bucket.
 
 ## Alteração segura da infraestrutura
 
@@ -273,19 +279,19 @@ Como o bucket possui `force_destroy = true`, os objetos são removidos antes da 
 
 O nome do bucket deve ser globalmente único no Google Cloud.
 
-Altere `bucket_name` em `infra/variables.tf` ou sobrescreva a variável e execute o plano novamente:
+Altere `bucket_name` em `infra/variables.tf` ou defina outro valor em `infra/inventories/dev/terraform.tfvars` e execute o plano novamente:
 
 ```bash
 terraform plan -var-file=inventories/dev/terraform.tfvars
 ```
 
-### Tipo incorreto em `project_id`
+### Tipo ou valor incorreto em `project_id`
 
-O ID do projeto é uma string, não um número. No arquivo `terraform.tfvars`, use aspas:
+Na configuração atual, `project_id` está declarado como `number` em `infra/variables.tf`. Informe o número do projeto sem aspas em `infra/inventories/dev/terraform.tfvars`. Para consultar o número, use `gcloud projects list`.
 
-```hcl
-project_id = "seu-project-id"
-```
+### Pasta do site não encontrada
+
+Confirme que `project_folder` corresponde a uma pasta existente dentro de `infra` e que ela contém pelo menos os arquivos `index.html` e `404.html`. Por padrão, o valor é `portfolio`.
 
 ### Permissão negada
 
@@ -320,7 +326,7 @@ Ao concluir, os participantes devem conseguir explicar:
 
 - A função do provider Google.
 - A diferença entre `terraform plan` e `terraform apply`.
-- Como variáveis e arquivos `.tfvars` configuram ambientes.
+- Como `bucket_name`, `project_id`, `project_folder` e arquivos `.tfvars` configuram o ambiente e selecionam o site.
 - Como `resource`, `local`, `for_each` e `output` funcionam.
 - Como o Terraform gera e utiliza o estado.
 - Como arquivos locais são publicados no Cloud Storage.

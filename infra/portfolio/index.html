@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dalva Mariana | Portfólio & Repositórios GitHub</title>
+  <meta name="description" content="Portfólio de Dalva Mariana (@dalfinha) - Desenvolvedora, automações e projetos no GitHub." />
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f3ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              900: '#1e1b4b',
+            },
+            darkbg: '#090d16',
+            cardbg: '#111827',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      background-color: #080c14;
+      color: #f3f4f6;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .glow-bg {
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.08) 35%, transparent 70%);
+    }
+
+    .glass-panel {
+      background: rgba(17, 24, 39, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: rgba(22, 30, 49, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .glass-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Badge Focus & Glow Card */
+    .badge-card {
+      background: linear-gradient(145deg, rgba(22, 30, 49, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .badge-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(129, 140, 248, 0.7);
+      box-shadow: 0 16px 36px -10px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080c14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #374151;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    .animate-pulse-glow {
+      animation: pulseGlow 4s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Background decorative elements -->
+  <div class="fixed inset-0 glow-bg pointer-events-none z-0"></div>
+  <div class="fixed top-1/4 -left-48 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="fixed bottom-1/3 -right-48 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="sticky top-0 z-50 glass-panel border-b border-gray-800/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-500 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+          <i class="fa-brands fa-github text-lg"></i>
+        </div>
+        <span class="font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-400">
+          dalfinha<span class="text-indigo-400">.dev</span>
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-300">
+        <a href="#sobre" class="hover:text-indigo-400 transition-colors">Sobre</a>
+        <a href="#certificacoes" class="hover:text-indigo-400 transition-colors">Certificações</a>
+        <a href="#repositorios" class="hover:text-indigo-400 transition-colors">Repositórios</a>
+        <a href="#links-uteis" class="hover:text-indigo-400 transition-colors">Links Úteis</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/dalfinha" target="_blank" rel="noopener noreferrer" 
+           class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg shadow-md shadow-indigo-600/30 transition-all flex items-center gap-2">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+    <!-- HERO PROFILE SECTION -->
+    <section id="sobre" class="glass-card rounded-2xl p-6 sm:p-10 relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-60 h-60 bg-indigo-500/10 rounded-full blur-2xl"></div>
+      
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
+        <!-- Avatar Wrapper -->
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-300"></div>
+          <img id="avatar" 
+               src="https://github.com/dalfinha.png" 
+               alt="Dalva Mariana" 
+               class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-2 border-gray-900 bg-gray-900 shadow-2xl" 
+               onerror="this.src='https://placehold.co/160x160/1e1b4b/ffffff?text=DM'" />
+          <div class="absolute bottom-2 right-2 bg-emerald-500 w-5 h-5 rounded-full border-2 border-gray-900 title='Disponível no GitHub'" title="Disponível"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="flex-1 text-center md:text-left space-y-4">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 mb-2">
+              <i class="fa-solid fa-code text-indigo-400"></i> Dev Portfolio & Cloud Static Site
+            </div>
+            <h1 id="user-name" class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Dalva Mariana
+            </h1>
+            <p id="user-handle" class="text-indigo-400 font-mono text-sm mt-1">@dalfinha</p>
+          </div>
+
+          <p id="user-bio" class="text-gray-300 leading-relaxed max-w-2xl text-sm sm:text-base">
+            De Santos, fã de Bob Esponja, música clássica e pizza de pepperoni. Amo desenhar, viajar, criar soluções novas e resolver desafios de quebrar a cabeça.
+          </p>
+
+          <!-- Badges / Tags -->
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 text-xs text-gray-400 pt-1">
+            <span id="user-location" class="flex items-center gap-1.5 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700/60">
+              <i class="fa-solid fa-location-dot text-indigo-400"></i> Santos, SP - Brasil
+            </span>
+            <span class="flex items-center gap-1.5 bg-gray-800/80 px-3 py-1.5 rounded-lg border border-gray-700/60">
+              <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i> Power Automate & Web
+            </span>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-gray-800/80">
+            <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+              <span id="stat-repos" class="block text-xl font-bold text-white">--</span>
+              <span class="text-xs text-gray-400">Repositórios</span>
+            </div>
+            <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+              <span id="stat-followers" class="block text-xl font-bold text-white">--</span>
+              <span class="text-xs text-gray-400">Seguidores</span>
+            </div>
+            <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+              <span id="stat-following" class="block text-xl font-bold text-white">--</span>
+              <span class="text-xs text-gray-400">Seguindo</span>
+            </div>
+            <div class="bg-gray-900/60 p-3 rounded-xl border border-gray-800 text-center">
+              <span id="stat-stars" class="block text-xl font-bold text-amber-400">--</span>
+              <span class="text-xs text-gray-400">Total Estrelas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERESTS & TECH STACK -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card rounded-xl p-5 space-y-3">
+        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+          <i class="fa-solid fa-bolt text-lg"></i>
+        </div>
+        <h3 class="font-bold text-white text-base">Automação & Processos</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">
+          Criação de fluxos inteligentes com Power Automate, scripts e integração de APIs para otimizar rotinas de trabalho.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-xl p-5 space-y-3">
+        <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+          <i class="fa-solid fa-code text-lg"></i>
+        </div>
+        <h3 class="font-bold text-white text-base">Desenvolvimento & Código</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">
+          Construção de aplicações web modernas, experimentação com linguagens e resolução de desafios analíticos complexos.
+        </p>
+      </div>
+
+      <div class="glass-card rounded-xl p-5 space-y-3">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <i class="fa-solid fa-palette text-lg"></i>
+        </div>
+        <h3 class="font-bold text-white text-base">Criatividade & Paixões</h3>
+        <p class="text-gray-400 text-xs leading-relaxed">
+          Ilustração, viagens, música clássica e constantes aprendizados. Transformando hobbies em inspiração visual para o código.
+        </p>
+      </div>
+    </section>
+
+    <!-- EMPHASIZED CERTIFICATIONS & BADGES SECTION -->
+    <section id="certificacoes" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-l-4 border-indigo-500 pl-4 py-1">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-1">
+            <i class="fa-solid fa-certificate"></i> Credenciais Verificadas
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <span>Certificações & Badges</span>
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-400 mt-1">Conquistas técnicas, selos de especialização e certificações Cloud & Automação</p>
+        </div>
+      </div>
+
+      <!-- Large Badge Grid Container -->
+      <div id="badges-container" class="w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="badges-list">
+          
+          <!-- Google Cloud Badge Card -->
+          <div class="badge-card rounded-2xl p-6 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-24 h-24 bg-blue-500/10 rounded-full blur-xl group-hover:bg-blue-500/20 transition-all"></div>
+            <div class="w-full h-36 bg-gray-900/90 rounded-xl flex items-center justify-center p-4 border border-gray-800 group-hover:border-indigo-500/40 group-hover:bg-indigo-950/20 transition-all mb-4 relative z-10">
+              <img src="https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" 
+                   alt="Google Cloud" 
+                   class="max-h-24 max-w-full object-contain filter drop-shadow-[0_6px_16px_rgba(66,133,244,0.4)] group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="space-y-1.5 w-full relative z-10 mb-4">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-blue-400">Google Cloud Platform</span>
+              <h3 class="text-base font-bold text-white group-hover:text-indigo-300 transition-colors">Google Cloud Certified</h3>
+              <p class="text-xs text-gray-400">Arquitetura de Nuvem, Storage Estático & Serviços GCP</p>
+            </div>
+            <a href="https://www.credly.com" target="_blank" rel="noopener noreferrer" 
+               class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-gray-800/80 hover:bg-indigo-600 text-gray-200 hover:text-white border border-gray-700/80 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 group/btn relative z-10">
+              <span>Verificar Credencial</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 transition-transform"></i>
+            </a>
+          </div>
+
+          <!-- Power Platform Badge Card -->
+          <div class="badge-card rounded-2xl p-6 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-24 h-24 bg-purple-500/10 rounded-full blur-xl group-hover:bg-purple-500/20 transition-all"></div>
+            <div class="w-full h-36 bg-gray-900/90 rounded-xl flex items-center justify-center p-4 border border-gray-800 group-hover:border-purple-500/40 group-hover:bg-purple-950/20 transition-all mb-4 relative z-10">
+              <img src="https://img.shields.io/badge/Microsoft_Power_Platform-742774?style=for-the-badge&logo=microsoft&logoColor=white" 
+                   alt="Microsoft Power Platform" 
+                   class="max-h-24 max-w-full object-contain filter drop-shadow-[0_6px_16px_rgba(116,39,116,0.4)] group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="space-y-1.5 w-full relative z-10 mb-4">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-purple-400">Microsoft Specialist</span>
+              <h3 class="text-base font-bold text-white group-hover:text-purple-300 transition-colors">Power Platform & Automate</h3>
+              <p class="text-xs text-gray-400">Automação de Processos & Fluxos Empresariais</p>
+            </div>
+            <a href="https://www.credly.com" target="_blank" rel="noopener noreferrer" 
+               class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-gray-800/80 hover:bg-purple-600 text-gray-200 hover:text-white border border-gray-700/80 hover:border-purple-500 transition-all flex items-center justify-center gap-2 group/btn relative z-10">
+              <span>Verificar Credencial</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 transition-transform"></i>
+            </a>
+          </div>
+
+          <!-- AWS Badge Card -->
+          <div class="badge-card rounded-2xl p-6 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-24 h-24 bg-amber-500/10 rounded-full blur-xl group-hover:bg-amber-500/20 transition-all"></div>
+            <div class="w-full h-36 bg-gray-900/90 rounded-xl flex items-center justify-center p-4 border border-gray-800 group-hover:border-amber-500/40 group-hover:bg-amber-950/20 transition-all mb-4 relative z-10">
+              <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white" 
+                   alt="AWS Cloud" 
+                   class="max-h-24 max-w-full object-contain filter drop-shadow-[0_6px_16px_rgba(245,158,11,0.3)] group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="space-y-1.5 w-full relative z-10 mb-4">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-amber-400">Amazon Web Services</span>
+              <h3 class="text-base font-bold text-white group-hover:text-amber-300 transition-colors">AWS Cloud Practitioner</h3>
+              <p class="text-xs text-gray-400">Serviços em Nuvem & Infraestrutura Global</p>
+            </div>
+            <a href="https://www.credly.com" target="_blank" rel="noopener noreferrer" 
+               class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-gray-800/80 hover:bg-amber-600 text-gray-200 hover:text-white border border-gray-700/80 hover:border-amber-500 transition-all flex items-center justify-center gap-2 group/btn relative z-10">
+              <span>Verificar Credencial</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 transition-transform"></i>
+            </a>
+          </div>
+
+          <!-- Scrum / Agile Badge Card -->
+          <div class="badge-card rounded-2xl p-6 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
+            <div class="w-full h-36 bg-gray-900/90 rounded-xl flex items-center justify-center p-4 border border-gray-800 group-hover:border-emerald-500/40 group-hover:bg-emerald-950/20 transition-all mb-4 relative z-10">
+              <img src="https://img.shields.io/badge/Scrum-0096D6?style=for-the-badge&logo=scrumAlliance&logoColor=white" 
+                   alt="Scrum Agile" 
+                   class="max-h-24 max-w-full object-contain filter drop-shadow-[0_6px_16px_rgba(16,185,129,0.3)] group-hover:scale-110 transition-transform duration-300" />
+            </div>
+            <div class="space-y-1.5 w-full relative z-10 mb-4">
+              <span class="text-[10px] font-semibold uppercase tracking-wider text-emerald-400">Metodologias Ágeis</span>
+              <h3 class="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">Scrum Fundamentals</h3>
+              <p class="text-xs text-gray-400">Gestão de Projetos & Desenvolvimento Ágil</p>
+            </div>
+            <a href="https://www.credly.com" target="_blank" rel="noopener noreferrer" 
+               class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-gray-800/80 hover:bg-emerald-600 text-gray-200 hover:text-white border border-gray-700/80 hover:border-emerald-500 transition-all flex items-center justify-center gap-2 group/btn relative z-10">
+              <span>Verificar Credencial</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 transition-transform"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REPOSITORIES SECTION -->
+    <section id="repositorios" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+            <i class="fa-solid fa-folder-open text-indigo-400"></i> Repositórios GitHub
+          </h2>
+          <p class="text-xs text-gray-400 mt-1">Sincronizados em tempo real via GitHub REST API</p>
+        </div>
+
+        <!-- Search & Filter Input -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-full sm:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+            <input type="text" 
+                   id="search-input" 
+                   placeholder="Buscar repositório..." 
+                   class="w-full pl-9 pr-4 py-2 bg-gray-900/90 border border-gray-800 rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition-colors" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Language Filter Pills -->
+      <div id="language-filters" class="flex flex-wrap gap-2 text-xs">
+        <button data-lang="all" class="px-3 py-1.5 rounded-lg font-medium bg-indigo-600 text-white transition-all filter-btn">
+          Todos
+        </button>
+      </div>
+
+      <!-- Repositories Grid Container -->
+      <div id="repos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Skeleton Loaders -->
+        <div class="glass-card rounded-xl p-6 space-y-4 animate-pulse">
+          <div class="h-5 bg-gray-800 rounded w-2/3"></div>
+          <div class="h-12 bg-gray-800/60 rounded"></div>
+          <div class="flex justify-between h-4 bg-gray-800 rounded w-1/2"></div>
+        </div>
+        <div class="glass-card rounded-xl p-6 space-y-4 animate-pulse">
+          <div class="h-5 bg-gray-800 rounded w-2/3"></div>
+          <div class="h-12 bg-gray-800/60 rounded"></div>
+          <div class="flex justify-between h-4 bg-gray-800 rounded w-1/2"></div>
+        </div>
+        <div class="glass-card rounded-xl p-6 space-y-4 animate-pulse">
+          <div class="h-5 bg-gray-800 rounded w-2/3"></div>
+          <div class="h-12 bg-gray-800/60 rounded"></div>
+          <div class="flex justify-between h-4 bg-gray-800 rounded w-1/2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LINKS ÚTEIS SECTION -->
+    <section id="links-uteis" class="glass-card rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="text-center sm:text-left">
+        <h2 class="text-2xl font-bold text-white tracking-tight flex items-center justify-center sm:justify-start gap-2">
+          <i class="fa-solid fa-link text-indigo-400"></i> Links Úteis & Redes
+        </h2>
+        <p class="text-xs text-gray-400 mt-1">Conecte-se comigo ou explore mais conteúdos</p>
+      </div>
+
+      <div id="useful-links-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Default / Fallback Useful Links -->
+        <a href="https://github.com/dalfinha" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center gap-3 p-3.5 rounded-xl bg-gray-900/80 border border-gray-800 hover:border-indigo-500 hover:bg-gray-800/90 transition-all group">
+          <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-github text-xl"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-indigo-400 transition-colors">GitHub</div>
+            <div class="text-[10px] text-gray-400">@dalfinha</div>
+          </div>
+        </a>
+
+        <a href="https://linkedin.com/in/dalfinha" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center gap-3 p-3.5 rounded-xl bg-gray-900/80 border border-gray-800 hover:border-blue-500 hover:bg-gray-800/90 transition-all group">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-linkedin text-xl"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">LinkedIn</div>
+            <div class="text-[10px] text-gray-400">Dalva Mariana</div>
+          </div>
+        </a>
+
+        <a href="https://www.credly.com" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center gap-3 p-3.5 rounded-xl bg-gray-900/80 border border-gray-800 hover:border-amber-500 hover:bg-gray-800/90 transition-all group">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-certificate text-xl"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-amber-400 transition-colors">Credly</div>
+            <div class="text-[10px] text-gray-400">Badges & Certs</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/dalfinha/dalfinha" target="_blank" rel="noopener noreferrer" 
+           class="flex items-center gap-3 p-3.5 rounded-xl bg-gray-900/80 border border-gray-800 hover:border-emerald-500 hover:bg-gray-800/90 transition-all group">
+          <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-id-card text-xl"></i>
+          </div>
+          <div>
+            <div class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">Perfil README</div>
+            <div class="text-[10px] text-gray-400">Repositório</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CAT GIF ANIMATION AT THE BOTTOM -->
+    <div class="flex flex-col items-center justify-center pt-6 space-y-2">
+      <div class="relative group">
+        <img id="cat-walking-gif" 
+             src="https://raw.githubusercontent.com/dalfinha/dalfinha/main/cat.gif" 
+             alt="Gato preto andando" 
+             class="h-16 sm:h-20 object-contain filter drop-shadow-[0_4px_12px_rgba(99,102,241,0.3)] transition-transform hover:scale-110" 
+             onerror="this.onerror=null; this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWlyNDNkbzBveW12cm1jcmlydWpjcXB5YmV6bHJldmVndnlreXZ1NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VbnUQpnihPSIgIXuZv/giphy.gif';" />
+      </div>
+      <p class="text-[11px] font-mono text-gray-500 text-center tracking-wider">🐾 ...caminhando pelos repositórios...</p>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="glass-panel border-t border-gray-800 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded bg-indigo-600 flex items-center justify-center text-white font-bold text-xs">D</div>
+        <span>Desenvolvido para <b>Dalva Mariana (@dalfinha)</b></span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/dalfinha" target="_blank" class="hover:text-indigo-400 transition-colors">
+          <i class="fa-brands fa-github text-base"></i>
+        </a>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-white transition-colors flex items-center gap-1">
+          <span>Topo</span> <i class="fa-solid fa-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const GITHUB_USERNAME = 'dalfinha';
+    let allRepositories = [];
+    let currentFilterLanguage = 'all';
+
+    // Language colors for badges
+    const languageColors = {
+      JavaScript: '#f1e05a',
+      TypeScript: '#3178c6',
+      Python: '#3572A5',
+      HTML: '#e34c26',
+      CSS: '#563d7c',
+      Vue: '#41b883',
+      React: '#61dafb',
+      PowerShell: '#012456',
+      Shell: '#89e051',
+      C: '#555555',
+      'C#': '#178600',
+      'C++': '#f34b7d',
+      Java: '#b07219',
+      PHP: '#4F5D95',
+      Jupyter: '#DA5B0B'
+    };
+
+    // Fallback data in case GitHub API rate limits or offline
+    const fallbackProfile = {
+      name: 'Dalva Mariana',
+      login: 'dalfinha',
+      avatar_url: 'https://github.com/dalfinha.png',
+      bio: 'De Santos, fã de Bob Esponja, música clássica e pizza de pepperoni. Amo desenhar, viajar, criar soluções novas e resolver desafios de quebrar a cabeça.',
+      location: 'Santos, SP - Brasil',
+      public_repos: 8,
+      followers: 12,
+      following: 15
+    };
+
+    const fallbackRepos = [
+      {
+        id: 1,
+        name: 'automatizando-com-power-automate',
+        description: 'Repositório com soluções e fluxos práticos de automação desenvolvidos utilizando o Microsoft Power Automate.',
+        html_url: 'https://github.com/dalfinha/automatizando-com-power-automate',
+        language: 'Power Automate',
+        stargazers_count: 5,
+        forks_count: 2,
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: 2,
+        name: 'desafios-de-codigo',
+        description: 'Algoritmos, estruturas de dados e desafios de lógica resolvidos em diversas linguagens de programação.',
+        html_url: 'https://github.com/dalfinha',
+        language: 'Python',
+        stargazers_count: 3,
+        forks_count: 1,
+        updated_at: new Date().toISOString()
+      },
+      {
+        id: 3,
+        name: 'web-portfolio-gcp',
+        description: 'Site estático moderno pronto para ser hospedado no Google Cloud Storage (GCP) com integração REST API.',
+        html_url: 'https://github.com/dalfinha',
+        language: 'HTML',
+        stargazers_count: 4,
+        forks_count: 0,
+        updated_at: new Date().toISOString()
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initPortfolio();
+      setupEventListeners();
+      fetchProfileReadme();
+    });
+
+    async function fetchProfileReadme() {
+      const branches = ['main', 'master'];
+      let readmeText = '';
+      let activeBranch = 'main';
+
+      for (const branch of branches) {
+        try {
+          const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}/${branch}/README.md`);
+          if (res.ok) {
+            readmeText = await res.text();
+            activeBranch = branch;
+            break;
+          }
+        } catch (e) {
+          console.warn(`Tentativa na branch ${branch} falhou:`, e);
+        }
+      }
+
+      if (!readmeText) return;
+
+      parseAndRenderBadges(readmeText);
+      parseAndRenderUsefulLinks(readmeText);
+      parseAndRenderCatGif(readmeText, activeBranch);
+    }
+
+    function parseAndRenderBadges(markdown) {
+      const imgRegex = /!\[(.*?)\]\((.*?)\)|<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+      let match;
+      const badges = [];
+
+      while ((match = imgRegex.exec(markdown)) !== null) {
+        const src = match[2] || match[3];
+        const alt = match[1] || 'Certificação';
+        if (!src) continue;
+
+        const srcLower = src.toLowerCase();
+        const altLower = alt.toLowerCase();
+
+        // Remove rótulos genéricos/sociais (GitHub Badge, Medium Badge, Credly Badge) e widgets de estatística do README
+        const isExcludedLabel = 
+          altLower.includes('github badge') || 
+          altLower.includes('medium badge') || 
+          altLower.includes('credly badge') ||
+          srcLower.includes('github-readme-stats') || 
+          srcLower.includes('streak-stats') ||
+          srcLower.includes('badge/github') || 
+          srcLower.includes('badge/medium') || 
+          srcLower.includes('badge/credly-') ||
+          srcLower.includes('visitor') ||
+          srcLower.includes('views');
+
+        if (!isExcludedLabel && (srcLower.includes('shields.io') || srcLower.includes('badge') || srcLower.includes('credly') || srcLower.includes('certif'))) {
+          if (!badges.some(b => b.src === src)) {
+            badges.push({ src, alt });
+          }
+        }
+      }
+
+      if (badges.length > 0) {
+        const listEl = document.getElementById('badges-list');
+        listEl.innerHTML = badges.map(b => {
+          let category = 'Credencial Técnica';
+          let borderHover = 'hover:border-indigo-500/50';
+          let textHover = 'group-hover:text-indigo-300';
+          let shadowGlow = 'rgba(99,102,241,0.3)';
+
+          const altLower = (b.alt || '').toLowerCase();
+          const srcLower = (b.src || '').toLowerCase();
+
+          if (srcLower.includes('google') || altLower.includes('google')) {
+            category = 'Google Cloud Platform';
+            borderHover = 'hover:border-blue-500/50';
+            textHover = 'group-hover:text-blue-300';
+            shadowGlow = 'rgba(66,133,244,0.4)';
+          } else if (srcLower.includes('microsoft') || srcLower.includes('power') || altLower.includes('power')) {
+            category = 'Microsoft Specialist';
+            borderHover = 'hover:border-purple-500/50';
+            textHover = 'group-hover:text-purple-300';
+            shadowGlow = 'rgba(116,39,116,0.4)';
+          } else if (srcLower.includes('aws') || altLower.includes('aws')) {
+            category = 'Amazon Web Services';
+            borderHover = 'hover:border-amber-500/50';
+            textHover = 'group-hover:text-amber-300';
+            shadowGlow = 'rgba(245,158,11,0.4)';
+          } else if (srcLower.includes('scrum') || altLower.includes('scrum') || altLower.includes('agile')) {
+            category = 'Metodologias Ágeis';
+            borderHover = 'hover:border-emerald-500/50';
+            textHover = 'group-hover:text-emerald-300';
+            shadowGlow = 'rgba(16,185,129,0.4)';
+          }
+
+          return `
+            <div class="badge-card rounded-2xl p-6 flex flex-col justify-between items-center text-center group relative overflow-hidden">
+              <div class="w-full h-36 bg-gray-900/90 rounded-xl flex items-center justify-center p-4 border border-gray-800 ${borderHover} transition-all mb-4 relative z-10">
+                <img src="${b.src}" alt="${b.alt}" class="max-h-24 max-w-full object-contain filter drop-shadow-[0_6px_16px_${shadowGlow}] group-hover:scale-110 transition-transform duration-300" onerror="this.parentElement.parentElement.remove()" />
+              </div>
+              <div class="space-y-1.5 w-full relative z-10 mb-4">
+                <span class="text-[10px] font-semibold uppercase tracking-wider text-indigo-400">${category}</span>
+                <h3 class="text-base font-bold text-white ${textHover} transition-colors">${b.alt || 'Certificação'}</h3>
+                <p class="text-xs text-gray-400">Verificado & Autenticado</p>
+              </div>
+              <a href="https://www.credly.com" target="_blank" rel="noopener noreferrer" 
+                 class="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-gray-800/80 hover:bg-indigo-600 text-gray-200 hover:text-white border border-gray-700/80 hover:border-indigo-500 transition-all flex items-center justify-center gap-2 group/btn relative z-10">
+                <span>Verificar Credencial</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] group-hover/btn:translate-x-0.5 transition-transform"></i>
+              </a>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function parseAndRenderUsefulLinks(markdown) {
+      const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)|<a[^>]+href=["'](https?:\/\/[^"']+)["'][^>]*>(.*?)<\/a>/gi;
+      let match;
+      const links = [];
+
+      while ((match = linkRegex.exec(markdown)) !== null) {
+        const title = (match[1] || match[4] || '').replace(/<[^>]*>/g, '').trim();
+        const url = match[2] || match[3];
+        if (url && title && !url.includes('shields.io') && !url.includes('github.com/dalfinha/dalfinha')) {
+          if (!links.some(l => l.url === url)) {
+            links.push({ title, url });
+          }
+        }
+      }
+
+      if (links.length > 0) {
+        const linksContainer = document.getElementById('useful-links-container');
+        linksContainer.innerHTML = links.map(l => {
+          let iconClass = 'fa-solid fa-globe';
+          let borderHover = 'hover:border-indigo-500';
+          let textHover = 'group-hover:text-indigo-400';
+          let bgIcon = 'bg-indigo-500/10 text-indigo-400';
+
+          const lowerUrl = l.url.toLowerCase();
+          const lowerTitle = l.title.toLowerCase();
+
+          if (lowerUrl.includes('linkedin') || lowerTitle.includes('linkedin')) {
+            iconClass = 'fa-brands fa-linkedin';
+            borderHover = 'hover:border-blue-500';
+            textHover = 'group-hover:text-blue-400';
+            bgIcon = 'bg-blue-500/10 text-blue-400';
+          } else if (lowerUrl.includes('github') || lowerTitle.includes('github')) {
+            iconClass = 'fa-brands fa-github';
+            borderHover = 'hover:border-purple-500';
+            textHover = 'group-hover:text-purple-400';
+            bgIcon = 'bg-purple-500/10 text-purple-400';
+          } else if (lowerUrl.includes('credly') || lowerTitle.includes('credly') || lowerTitle.includes('badge')) {
+            iconClass = 'fa-solid fa-certificate';
+            borderHover = 'hover:border-amber-500';
+            textHover = 'group-hover:text-amber-400';
+            bgIcon = 'bg-amber-500/10 text-amber-400';
+          } else if (lowerUrl.includes('mailto') || lowerTitle.includes('email') || lowerTitle.includes('contato')) {
+            iconClass = 'fa-solid fa-envelope';
+            borderHover = 'hover:border-emerald-500';
+            textHover = 'group-hover:text-emerald-400';
+            bgIcon = 'bg-emerald-500/10 text-emerald-400';
+          } else if (lowerUrl.includes('instagram') || lowerTitle.includes('instagram')) {
+            iconClass = 'fa-brands fa-instagram';
+            borderHover = 'hover:border-pink-500';
+            textHover = 'group-hover:text-pink-400';
+            bgIcon = 'bg-pink-500/10 text-pink-400';
+          }
+
+          return `
+            <a href="${l.url}" target="_blank" rel="noopener noreferrer" 
+               class="flex items-center gap-3 p-3.5 rounded-xl bg-gray-900/80 border border-gray-800 ${borderHover} hover:bg-gray-800/90 transition-all group">
+              <div class="w-10 h-10 rounded-lg ${bgIcon} flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i class="${iconClass} text-xl"></i>
+              </div>
+              <div class="overflow-hidden">
+                <div class="text-xs font-bold text-white ${textHover} transition-colors truncate">${l.title}</div>
+                <div class="text-[10px] text-gray-400 truncate">${l.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]}</div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+    }
+
+    function parseAndRenderCatGif(markdown, branch = 'main') {
+      const imgRegex = /!\[(.*?)\]\((.*?)\)|<img[^>]+src=["']([^"']+)["'][^>]*>/gi;
+      let match;
+      let foundGifUrl = null;
+
+      while ((match = imgRegex.exec(markdown)) !== null) {
+        const src = match[2] || match[3];
+        const alt = (match[1] || '').toLowerCase();
+        if (!src) continue;
+
+        const srcLower = src.toLowerCase();
+        // Look for GIF files or images related to cat / gato / walk
+        if (srcLower.endsWith('.gif') || srcLower.includes('cat') || srcLower.includes('gato') || alt.includes('cat') || alt.includes('gato')) {
+          foundGifUrl = src;
+          if (srcLower.includes('cat') || srcLower.includes('gato')) {
+            break; // Ideal match found
+          }
+        }
+      }
+
+      if (foundGifUrl) {
+        // Resolve relative paths against raw github base URL
+        let finalUrl = foundGifUrl;
+        if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
+          const cleanPath = finalUrl.replace(/^\.\//, '').replace(/^\//, '');
+          finalUrl = `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_USERNAME}/${branch}/${cleanPath}`;
+        }
+
+        const catImg = document.getElementById('cat-walking-gif');
+        if (catImg) {
+          catImg.src = finalUrl;
+        }
+      }
+    }
+
+    async function initPortfolio() {
+      try {
+        // Fetch User Profile Data
+        const userRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+        if (!userRes.ok) throw new Error('Falha ao carregar perfil via API');
+        const userData = await userRes.json();
+        renderProfile(userData);
+      } catch (err) {
+        console.warn('Usando dados de fallback para perfil:', err);
+        renderProfile(fallbackProfile);
+      }
+
+      try {
+        // Fetch User Repositories
+        const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`);
+        if (!reposRes.ok) throw new Error('Falha ao carregar repositórios via API');
+        const reposData = await reposRes.json();
+        allRepositories = reposData;
+        
+        if (!allRepositories || allRepositories.length === 0) {
+          allRepositories = fallbackRepos;
+        }
+      } catch (err) {
+        console.warn('Usando dados de fallback para repositórios:', err);
+        allRepositories = fallbackRepos;
+      }
+
+      renderStats(allRepositories);
+      renderLanguageFilters(allRepositories);
+      renderRepositories(allRepositories);
+    }
+
+    function renderProfile(user) {
+      document.getElementById('user-name').textContent = user.name || 'Dalva Mariana';
+      document.getElementById('user-handle').textContent = `@${user.login || 'dalfinha'}`;
+      if (user.bio) document.getElementById('user-bio').textContent = user.bio;
+      if (user.location) {
+        document.getElementById('user-location').innerHTML = `<i class="fa-solid fa-location-dot text-indigo-400"></i> ${user.location}`;
+      }
+      if (user.avatar_url) {
+        document.getElementById('avatar').src = user.avatar_url;
+      }
+
+      document.getElementById('stat-repos').textContent = user.public_repos || allRepositories.length || fallbackProfile.public_repos;
+      document.getElementById('stat-followers').textContent = user.followers !== undefined ? user.followers : fallbackProfile.followers;
+      document.getElementById('stat-following').textContent = user.following !== undefined ? user.following : fallbackProfile.following;
+    }
+
+    function renderStats(repos) {
+      const totalStars = repos.reduce((acc, r) => acc + (r.stargazers_count || 0), 0);
+      document.getElementById('stat-stars').textContent = totalStars;
+    }
+
+    function renderLanguageFilters(repos) {
+      const languages = new Set();
+      repos.forEach(r => {
+        if (r.language) languages.add(r.language);
+      });
+
+      const filtersContainer = document.getElementById('language-filters');
+      // Clear skeleton or existing extra buttons
+      filtersContainer.innerHTML = `
+        <button data-lang="all" class="filter-btn px-3 py-1.5 rounded-lg font-medium bg-indigo-600 text-white transition-all shadow-sm">
+          Todos
+        </button>
+      `;
+
+      languages.forEach(lang => {
+        const btn = document.createElement('button');
+        btn.dataset.lang = lang;
+        btn.className = 'filter-btn px-3 py-1.5 rounded-lg font-medium bg-gray-900 text-gray-300 hover:text-white hover:bg-gray-800 border border-gray-800 transition-all';
+        btn.textContent = lang;
+        filtersContainer.appendChild(btn);
+      });
+
+      // Add filter click events
+      document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-indigo-600', 'text-white');
+            b.classList.add('bg-gray-900', 'text-gray-300');
+          });
+
+          e.currentTarget.classList.remove('bg-gray-900', 'text-gray-300');
+          e.currentTarget.classList.add('bg-indigo-600', 'text-white');
+
+          currentFilterLanguage = e.currentTarget.dataset.lang;
+          filterAndRenderRepos();
+        });
+      });
+    }
+
+    function filterAndRenderRepos() {
+      const searchQuery = document.getElementById('search-input').value.toLowerCase();
+      
+      const filtered = allRepositories.filter(repo => {
+        const matchesLang = currentFilterLanguage === 'all' || repo.language === currentFilterLanguage;
+        const matchesSearch = repo.name.toLowerCase().includes(searchQuery) || 
+                              (repo.description && repo.description.toLowerCase().includes(searchQuery));
+        return matchesLang && matchesSearch;
+      });
+
+      renderRepositories(filtered);
+    }
+
+    function renderRepositories(repos) {
+      const container = document.getElementById('repos-container');
+      
+      if (!repos || repos.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full glass-card rounded-xl p-8 text-center text-gray-400 space-y-2">
+            <i class="fa-solid fa-folder-open text-3xl text-gray-600"></i>
+            <p>Nenhum repositório encontrado com os filtros selecionados.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = repos.map(repo => {
+        const langColor = languageColors[repo.language] || '#818cf8';
+        const formattedDate = repo.updated_at ? new Date(repo.updated_at).toLocaleDateString('pt-BR', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+
+        return `
+          <div class="glass-card rounded-xl p-6 flex flex-col justify-between space-y-4 group">
+            <div class="space-y-2">
+              <div class="flex items-start justify-between gap-2">
+                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" 
+                   class="font-bold text-white text-base group-hover:text-indigo-400 transition-colors flex items-center gap-2 line-clamp-1">
+                  <i class="fa-solid fa-book-bookmark text-indigo-400 text-sm"></i>
+                  <span>${repo.name}</span>
+                </a>
+                <a href="${repo.html_url}" target="_blank" class="text-gray-500 hover:text-white transition-colors text-xs">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+
+              <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed min-h-[2.5rem]">
+                ${repo.description || 'Sem descrição cadastrada no repositório.'}
+              </p>
+            </div>
+
+            <div class="pt-3 border-t border-gray-800/80 flex items-center justify-between text-xs text-gray-400">
+              <div class="flex items-center gap-3">
+                ${repo.language ? `
+                  <span class="flex items-center gap-1.5 font-medium">
+                    <span class="w-2.5 h-2.5 rounded-full inline-block" style="background-color: ${langColor};"></span>
+                    ${repo.language}
+                  </span>
+                ` : '<span class="text-gray-600">Geral</span>'}
+
+                <span class="flex items-center gap-1 hover:text-amber-400 transition-colors">
+                  <i class="fa-regular fa-star text-amber-400"></i>
+                  ${repo.stargazers_count || 0}
+                </span>
+
+                <span class="flex items-center gap-1">
+                  <i class="fa-solid fa-code-fork"></i>
+                  ${repo.forks_count || 0}
+                </span>
+              </div>
+
+              <span class="text-[10px] text-gray-500 font-mono">${formattedDate}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setupEventListeners() {
+      const searchInput = document.getElementById('search-input');
+      searchInput.addEventListener('input', () => {
+        filterAndRenderRepos();
+      });
+    }
+  </script>
+</body>
+</html>
