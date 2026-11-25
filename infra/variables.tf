@@ -9,3 +9,7 @@ variable "project_id" {
   type        = number
 }
 
+variable "project_folder" {
+  description = "Pasta que contém os arquivos do site"
+  type        = string
+}

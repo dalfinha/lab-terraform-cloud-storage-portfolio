@@ -9,8 +9,8 @@ resource "google_storage_bucket" "static_site" {
   public_access_prevention = "inherited"
 
   website {
-    main_page_suffix = "site-pages/index.html"
-    not_found_page   = "site-pages/404.html"
+    main_page_suffix = "${var.project_folder}/index.html"
+    not_found_page   = "${var.project_folder}/404.html"
   }
 }
 
@@ -26,8 +26,8 @@ resource "google_storage_bucket_iam_member" "public_access" {
 resource "google_storage_bucket_object" "website_files" {
   for_each = local.website_files
 
-  name   = "site-pages/${each.value}"
+  name   = "${var.project_folder}/${each.value}"
   bucket = google_storage_bucket.static_site.name
-  source = "${path.module}/site-pages/${each.value}"
+  source = "${path.module}/${var.project_folder}/${each.value}"
   cache_control = "no-cache, max-age=0"
 }
