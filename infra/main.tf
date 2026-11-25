@@ -5,7 +5,6 @@ resource "google_storage_bucket" "static_site" {
 
   uniform_bucket_level_access = true
   
-  
   public_access_prevention = "inherited"
 
   website {
