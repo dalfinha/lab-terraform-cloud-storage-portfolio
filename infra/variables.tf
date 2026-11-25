@@ -11,5 +11,6 @@ variable "project_id" {
 
 variable "project_folder" {
   description = "Pasta que contém os arquivos do site"
+  default     = "portfolio"
   type        = string
 }

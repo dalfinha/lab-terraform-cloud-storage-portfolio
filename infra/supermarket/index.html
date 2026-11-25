@@ -1,1350 +1,1393 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercado Baratex | Economia de Verdade Todo Dia</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ==========================================================================
-           VARIÁVEIS E RESET (DESIGN SYSTEM)
-           ========================================================================== */
-        :root {
-            --primary: #10b981;        /* Verde Esmeralda Fresco */
-            --primary-dark: #059669;
-            --primary-light: #d1fae5;
-            --secondary: #f59e0b;      /* Laranja Oferta */
-            --bg-body: #f8fafc;
-            --bg-surface: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --danger: #ef4444;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --radius-md: 0.75rem;
-            --radius-lg: 1rem;
-            --radius-full: 9999px;
-            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
-            background: none;
-            font-family: inherit;
-        }
-
-        /* ==========================================================================
-           HEADER & NAVEGAÇÃO
-           ========================================================================== */
-        .top-banner {
-            background-color: var(--primary-dark);
-            color: white;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-        }
-
-        header {
-            background-color: var(--bg-surface);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .header-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            text-decoration: none;
-            letter-spacing: -0.025em;
-        }
-
-        .logo span {
-            color: var(--text-main);
-        }
-
-        .search-bar {
-            flex: 1;
-            max-width: 540px;
-            position: relative;
-            min-width: 260px;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 0.75rem 1rem 0.75rem 2.75rem;
-            border-radius: var(--radius-full);
-            border: 1.5px solid var(--border-color);
-            background-color: var(--bg-body);
-            font-size: 0.95rem;
-            color: var(--text-main);
-            transition: var(--transition);
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background-color: var(--bg-surface);
-            box-shadow: 0 0 0 3px var(--primary-light);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            pointer-events: none;
-        }
-
-        .cart-trigger {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background-color: var(--primary);
-            color: white;
-            padding: 0.65rem 1.25rem;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .cart-trigger:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-1px);
-        }
-
-        .cart-badge {
-            background-color: white;
-            color: var(--primary-dark);
-            font-size: 0.8rem;
-            font-weight: 800;
-            padding: 0.15rem 0.55rem;
-            border-radius: var(--radius-full);
-        }
-
-        /* ==========================================================================
-           HERO BANNER
-           ========================================================================== */
-        .hero {
-            max-width: 1280px;
-            margin: 1.5rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .hero-card {
-            background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 580px;
-            z-index: 2;
-        }
-
-        .hero-tag {
-            display: inline-block;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 0.85rem;
-            border-radius: var(--radius-full);
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            backdrop-filter: blur(4px);
-        }
-
-        .hero-content h1 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem);
-            font-weight: 800;
-            line-height: 1.15;
-            margin-bottom: 0.75rem;
-        }
-
-        .hero-content p {
-            color: #d1fae5;
-            font-size: 1.05rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-visual {
-            font-size: 6rem;
-            user-select: none;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
-        }
-
-        /* ==========================================================================
-           CATEGORIAS (FILTROS)
-           ========================================================================== */
-        .categories-section {
-            max-width: 1280px;
-            margin: 0 auto 1.5rem;
-            padding: 0 1.5rem;
-        }
-
-        .categories-list {
-            display: flex;
-            gap: 0.75rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-            scrollbar-width: none;
-        }
-
-        .categories-list::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.65rem 1.25rem;
-            border-radius: var(--radius-full);
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            transition: var(--transition);
-        }
-
-        .category-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary-dark);
-        }
-
-        .category-btn.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ==========================================================================
-           CATÁLOGO DE PRODUTOS
-           ========================================================================== */
-        .catalog-section {
-            max-width: 1280px;
-            margin: 0 auto 4rem;
-            padding: 0 1.5rem;
-        }
-
-        .catalog-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.25rem;
-        }
-
-        .catalog-header h2 {
-            font-size: 1.35rem;
-            font-weight: 700;
-        }
-
-        .results-count {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .product-card {
-            background-color: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: #cbd5e1;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background-color: var(--secondary);
-            color: white;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 0.2rem 0.6rem;
-            border-radius: var(--radius-full);
-            text-transform: uppercase;
-        }
-
-        .product-img-box {
-            height: 150px;
-            background-color: var(--bg-body);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .product-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-img-box img {
-            transform: scale(1.05);
-        }
-
-        .product-emoji {
-            font-size: 4.25rem;
-        }
-
-        .product-category-tag {
-            font-size: 0.75rem;
-            color: var(--primary-dark);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            margin-bottom: 0.25rem;
-        }
-
-        .product-title {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 0.25rem;
-        }
-
-        .product-unit {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .product-footer {
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.5rem;
-        }
-
-        .product-price {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--text-main);
-        }
-
-        .add-btn {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-            font-weight: 700;
-            font-size: 0.875rem;
-            padding: 0.6rem 1rem;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            transition: var(--transition);
-        }
-
-        .add-btn:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 4rem 1rem;
-            background-color: var(--bg-surface);
-            border-radius: var(--radius-lg);
-            border: 1px dashed var(--border-color);
-        }
-
-        /* ==========================================================================
-           CARRINHO LATERAL (DRAWER)
-           ========================================================================== */
-        .drawer-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(2px);
-            z-index: 50;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-        }
-
-        .drawer-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .cart-drawer {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 100%;
-            max-width: 420px;
-            height: 100vh;
-            background-color: var(--bg-surface);
-            z-index: 60;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -10px 0 25px rgba(0,0,0,0.15);
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .cart-drawer.open {
-            transform: translateX(0);
-        }
-
-        .drawer-header {
-            padding: 1.25rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .drawer-header h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .close-drawer {
-            padding: 0.5rem;
-            border-radius: var(--radius-full);
-            color: var(--text-muted);
-            font-size: 1.25rem;
-            line-height: 1;
-        }
-
-        .close-drawer:hover {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-        }
-
-        /* Barra de progresso do Frete Grátis */
-        .shipping-progress-box {
-            padding: 1rem 1.5rem;
-            background-color: #f0fdf4;
-            border-bottom: 1px solid #dcfce7;
-        }
-
-        .shipping-text {
-            font-size: 0.85rem;
-            color: #166534;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 8px;
-            background-color: #bbf7d0;
-            border-radius: var(--radius-full);
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background-color: var(--primary);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .cart-items-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .cart-item-thumb {
-            width: 56px;
-            height: 56px;
-            border-radius: var(--radius-md);
-            background-color: var(--bg-body);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .cart-item-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .cart-item-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .cart-item-title {
-            font-size: 0.9rem;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .cart-item-price {
-            font-size: 0.85rem;
-            color: var(--primary-dark);
-            font-weight: 700;
-        }
-
-        .qty-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--bg-body);
-            padding: 0.25rem;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-        }
-
-        .qty-btn {
-            width: 26px;
-            height: 26px;
-            border-radius: 6px;
-            background-color: white;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .qty-btn:hover {
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-        }
-
-        .qty-value {
-            font-size: 0.85rem;
-            font-weight: 700;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        .remove-item-btn {
-            color: var(--text-muted);
-            padding: 0.35rem;
-            font-size: 1rem;
-        }
-
-        .remove-item-btn:hover {
-            color: var(--danger);
-        }
-
-        .drawer-footer {
-            padding: 1.25rem 1.5rem;
-            border-top: 1px solid var(--border-color);
-            background-color: var(--bg-body);
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-        }
-
-        .summary-row.total {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-top: 0.75rem;
-            padding-top: 0.75rem;
-            border-top: 1px solid var(--border-color);
-            margin-bottom: 1rem;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background-color: var(--primary);
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 0.9rem;
-            border-radius: var(--radius-md);
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-        }
-
-        .checkout-btn:hover:not(:disabled) {
-            background-color: var(--primary-dark);
-        }
-
-        .checkout-btn:disabled {
-            background-color: #cbd5e1;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        /* Cupom de Desconto */
-        .coupon-box {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .coupon-input {
-            flex: 1;
-            padding: 0.55rem 0.75rem;
-            border: 1.5px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            background-color: var(--bg-surface);
-        }
-
-        .coupon-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .coupon-btn {
-            background-color: var(--text-main);
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 0 1rem;
-            border-radius: var(--radius-md);
-            transition: var(--transition);
-        }
-
-        .coupon-btn:hover {
-            background-color: var(--primary-dark);
-        }
-
-        .coupon-feedback {
-            font-size: 0.8rem;
-            margin-top: -0.65rem;
-            margin-bottom: 0.85rem;
-            font-weight: 600;
-        }
-
-        /* ==========================================================================
-           MODAL DE FINALIZAÇÃO E NOTIFICAÇÃO TOAST
-           ========================================================================== */
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(15, 23, 42, 0.6);
-            z-index: 70;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .modal-backdrop.active {
-            display: flex;
-        }
-
-        .modal-card {
-            background-color: white;
-            border-radius: var(--radius-lg);
-            max-width: 440px;
-            width: 100%;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            animation: popIn 0.25s ease-out;
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.92); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .toast-container {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 80;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            pointer-events: none;
-        }
-
-        .toast {
-            background-color: var(--text-main);
-            color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: var(--radius-full);
-            font-size: 0.875rem;
-            font-weight: 500;
-            box-shadow: var(--shadow-lg);
-            animation: slideUp 0.25s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        /* ==========================================================================
-           FOOTER
-           ========================================================================== */
-        footer {
-            background-color: var(--bg-surface);
-            border-top: 1px solid var(--border-color);
-            padding: 2.5rem 1.5rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* ==========================================================================
-           RESPONSIVIDADE MOBILE
-           ========================================================================== */
-        @media (max-width: 640px) {
-            .header-container {
-                padding: 0.85rem 1rem;
-                gap: 0.85rem;
-            }
-            .search-bar {
-                order: 3;
-                max-width: 100%;
-                flex-basis: 100%;
-            }
-            .hero-card {
-                padding: 1.75rem;
-                flex-direction: column;
-                text-align: center;
-            }
-            .hero-visual {
-                font-size: 4rem;
-            }
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 1rem;
-            }
-            .product-card {
-                padding: 0.9rem;
-            }
-            .product-img-box {
-                height: 120px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mercado Baratex — Economia de verdade todos os dias</title>
+  <style>
+    :root {
+      --primary: #16a34a;
+      --primary-dark: #15803d;
+      --primary-deeper: #065f46;
+      --primary-light: #dcfce7;
+      --accent: #f59e0b;
+      --danger: #dc2626;
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .topbar {
+      background: var(--primary-deeper);
+      color: #fff;
+      font-size: 0.82rem;
+      padding: 0.45rem 1.25rem;
+    }
+
+    .topbar-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 900;
+      font-size: 1.45rem;
+      letter-spacing: -0.4px;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .cep-box {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .cep-box strong {
+      color: var(--text);
+      display: block;
+      font-size: 0.85rem;
+    }
+
+    .search-form {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      background: var(--bg);
+      border: 2px solid transparent;
+      border-radius: 999px;
+      padding: 0.25rem 0.3rem 0.25rem 1.1rem;
+      transition: all 0.2s;
+    }
+
+    .search-form:focus-within {
+      border-color: var(--primary);
+      background: #fff;
+    }
+
+    .search-form input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .search-form button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.55rem 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .search-form button:hover {
+      background: var(--primary-dark);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .icon-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 0.6rem 1rem;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .icon-btn.active {
+      background: #fef2f2;
+      border-color: #fecaca;
+      color: var(--danger);
+    }
+
+    .cart-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 1.25rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+    }
+
+    .cart-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .cart-count {
+      background: var(--accent);
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+    }
+
+    .hero-wrap {
+      max-width: 1280px;
+      margin: 1.25rem auto 0;
+      padding: 0 1.25rem;
+    }
+
+    .hero-banner {
+      background: linear-gradient(125deg, #065f46, #16a34a 55%, #10b981);
+      color: #fff;
+      border-radius: 20px;
+      padding: 2.25rem;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-banner h1 {
+      font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-banner p {
+      opacity: 0.95;
+      max-width: 520px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-cta {
+      background: #fff;
+      color: var(--primary-deeper);
+      border: none;
+      padding: 0.75rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .hero-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .mini-promo {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .mini-promo span {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .mini-promo strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .mini-promo small {
+      opacity: 0.88;
+      font-size: 0.8rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3.5rem;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .categories {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .cat-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.55rem 1.05rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .cat-btn.active,
+    .cat-btn:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .select-sort {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.9rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 600;
+      outline: none;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .section-head h2 {
+      font-size: 1.3rem;
+    }
+
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(235px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .badge-offer {
+      position: absolute;
+      top: 0.85rem;
+      left: 0.85rem;
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+    }
+
+    .fav-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+    }
+
+    .card-thumb {
+      background: var(--bg);
+      border-radius: 10px;
+      height: 130px;
+      display: grid;
+      place-items: center;
+      font-size: 3.5rem;
+      margin-bottom: 0.85rem;
+      cursor: pointer;
+    }
+
+    .card-cat {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      color: var(--primary-dark);
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin: 0.2rem 0;
+      cursor: pointer;
+    }
+
+    .card-title:hover {
+      color: var(--primary);
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .old-price {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      min-height: 1.1rem;
+    }
+
+    .card-price {
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.8rem;
+    }
+
+    .add-btn {
+      width: 100%;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: none;
+      border-radius: 10px;
+      padding: 0.65rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .add-btn:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .card-qty-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 10px;
+      padding: 0.35rem 0.5rem;
+      font-weight: 700;
+    }
+
+    .card-qty-bar button {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      display: none;
+      z-index: 50;
+    }
+
+    .backdrop.open {
+      display: block;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: -440px;
+      width: 100%;
+      max-width: 440px;
+      height: 100vh;
+      background: var(--surface);
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.25s ease;
+      box-shadow: -10px 0 30px rgba(15, 23, 42, 0.15);
+    }
+
+    .drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      padding: 1.15rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .close-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .shipping-bar {
+      background: #f0fdf4;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid #bbf7d0;
+      font-size: 0.84rem;
+    }
+
+    .progress-track {
+      height: 7px;
+      background: #dcfce7;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 0.4rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .drawer-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.25rem;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .cart-item-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .coupon-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .coupon-box input {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-transform: uppercase;
+      font-size: 0.88rem;
+    }
+
+    .coupon-box button {
+      background: var(--text);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .coupon-msg {
+      font-size: 0.82rem;
+      margin-top: 0.4rem;
+      min-height: 1.1rem;
+    }
+
+    .coupon-msg.ok {
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .coupon-msg.err {
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    .drawer-footer {
+      padding: 1rem 1.25rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin: 0.65rem 0 0.95rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.85rem;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .checkout-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      z-index: 70;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border-radius: 18px;
+      max-width: 460px;
+      width: 100%;
+      padding: 1.6rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .modal-card h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 0.85rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-size: 0.92rem;
+    }
+
+    .receipt {
+      background: var(--bg);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 0.95rem;
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--text);
+      color: #fff;
+      padding: 0.7rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 80;
+      transition: transform 0.25s ease;
+      box-shadow: var(--shadow-md);
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.25rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .footer-inner h4 {
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 820px) {
+      .hero-banner {
+        grid-template-columns: 1fr;
+      }
+      .cep-box {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span>🛒 <strong>Mercado Baratex</strong> — Economia de verdade todos os dias</span>
+      <span>🚚 Frete grátis em compras acima de <strong>R$ 120,00</strong></span>
+    </div>
+  </div>
 
-    <!-- Faixa Promocional -->
-    <div class="top-banner">
-        🏷️ Bem-vindo ao <strong>Mercado Baratex</strong>! Use o cupom <strong>BARATEX10</strong> para 10% OFF • Frete Grátis acima de R$ 150,00!
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <div class="logo-badge">🛒</div>
+        Mercado <span>Baratex</span>
+      </a>
+
+      <div class="cep-box" onclick="changeRegion()">
+        📍
+        <div>
+          Entregar em
+          <strong id="regionText">Centro • 35-50 min</strong>
+        </div>
+      </div>
+
+      <form class="search-form" onsubmit="handleSearch(event)">
+        <input id="searchInput" type="search" placeholder="Busque por arroz, café, frutas, limpeza..." />
+        <button type="submit">Buscar</button>
+      </form>
+
+      <div class="header-actions">
+        <button class="icon-btn" id="favFilterBtn" onclick="toggleFavFilter()">
+          ❤️ Favoritos (<span id="favCount">0</span>)
+        </button>
+
+        <button class="cart-btn" onclick="toggleCart(true)">
+          Carrinho <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero-wrap">
+    <div class="hero-banner">
+      <div>
+        <span class="hero-pill">Semana do Preço Baixo</span>
+        <h1>Feira, açougue e despensa completa sem sair de casa</h1>
+        <p>Produtos selecionados com frescor garantido, controle rápido de quantidades e entrega agendada no Mercado Baratex.</p>
+        <button class="hero-cta" onclick="filterOffers()">Ver ofertas em destaque</button>
+      </div>
+      <div class="hero-cards">
+        <div class="mini-promo">
+          <span>🥬</span>
+          <strong>Hortifrúti Fresco</strong>
+          <small>Colhido e entregue no mesmo dia</small>
+        </div>
+        <div class="mini-promo">
+          <span>🥩</span>
+          <strong>Açougue Selecionado</strong>
+          <small>Cortes embalados na hora</small>
+        </div>
+        <div class="mini-promo">
+          <span>⚡</span>
+          <strong>Entrega Expressa</strong>
+          <small>Receba em até 50 minutos</small>
+        </div>
+        <div class="mini-promo">
+          <span>💳</span>
+          <strong>Pix ou Cartão</strong>
+          <small>Pagamento rápido e seguro</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="toolbar">
+      <div class="categories" id="categories"></div>
+
+      <select id="sortSelect" class="select-sort" onchange="renderProducts()">
+        <option value="featured">Ordenar: Relevância</option>
+        <option value="price-asc">Menor preço</option>
+        <option value="price-desc">Maior preço</option>
+        <option value="rating">Melhor avaliação</option>
+      </select>
     </div>
 
-    <!-- Cabeçalho -->
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo" onclick="resetFilters(event)">
-                🛒 Mercado<span>Baratex</span>
-            </a>
-
-            <div class="search-bar">
-                <span class="search-icon">🔍</span>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Buscar frutas, carnes, bebidas, limpeza..."
-                    aria-label="Buscar produtos"
-                >
-            </div>
-
-            <button class="cart-trigger" id="openCartBtn" aria-label="Abrir carrinho">
-                <span>🛍️ Carrinho</span>
-                <span class="cart-badge" id="cartCountBadge">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Banner Principal -->
-    <section class="hero">
-        <div class="hero-card">
-            <div class="hero-content">
-                <span class="hero-tag">🏷️ Preço Baixo Todo Dia no Mercado Baratex</span>
-                <h1>Economia de verdade sem sair de casa.</h1>
-                <p>No Mercado Baratex você encontra hortifruti fresquinho, açougue selecionado e as melhores ofertas para o seu bolso.</p>
-            </div>
-            <div class="hero-visual" aria-hidden="true">🥑🥖🥩</div>
-        </div>
-    </section>
-
-    <!-- Filtro de Categorias -->
-    <section class="categories-section" aria-label="Categorias de produtos">
-        <div class="categories-list" id="categoriesContainer">
-            <!-- Renderizado dinamicamente via JS -->
-        </div>
-    </section>
-
-    <!-- Catálogo de Produtos -->
-    <main class="catalog-section">
-        <div class="catalog-header">
-            <h2 id="catalogTitle">Todos os Produtos</h2>
-            <span class="results-count" id="resultsCount">0 itens</span>
-        </div>
-
-        <div class="products-grid" id="productsGrid">
-            <!-- Cards renderizados via JS -->
-        </div>
-    </main>
-
-    <!-- Rodapé -->
-    <footer>
-        <p><strong>Mercado Baratex Online</strong> — Economia de verdade, direto na sua porta. Otimizado para Cloud Storage.</p>
-        <p style="margin-top: 0.4rem; font-size: 0.8rem;">Imagens ilustrativas • Preços em Reais (BRL) • Cupom ativo: BARATEX10</p>
-    </footer>
-
-    <!-- Overlay e Drawer do Carrinho -->
-    <div class="drawer-overlay" id="drawerOverlay"></div>
-    <aside class="cart-drawer" id="cartDrawer" aria-label="Carrinho de compras">
-        <div class="drawer-header">
-            <h3>🛍️ Seu Carrinho</h3>
-            <button class="close-drawer" id="closeCartBtn" aria-label="Fechar carrinho">✕</button>
-        </div>
-
-        <!-- Barra de Frete Grátis -->
-        <div class="shipping-progress-box">
-            <p class="shipping-text" id="shippingText">Faltam R$ 150,00 para <strong>Frete Grátis!</strong></p>
-            <div class="progress-track">
-                <div class="progress-fill" id="shippingProgressFill"></div>
-            </div>
-        </div>
-
-        <!-- Lista de Itens -->
-        <div class="cart-items-container" id="cartItemsContainer">
-            <!-- Itens renderizados via JS -->
-        </div>
-
-        <!-- Resumo e Checkout -->
-        <div class="drawer-footer">
-            <div class="coupon-box">
-                <input type="text" id="couponInput" class="coupon-input" placeholder="Cupom (ex: BARATEX10)" aria-label="Código do cupom">
-                <button type="button" class="coupon-btn" id="applyCouponBtn">Aplicar</button>
-            </div>
-            <div id="couponFeedback" class="coupon-feedback" style="display: none;"></div>
-
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="subtotalValue">R$ 0,00</span>
-            </div>
-            <div class="summary-row" id="discountRow" style="display: none; color: var(--primary-dark); font-weight: 600;">
-                <span>Desconto (<span id="discountLabel"></span>)</span>
-                <span id="discountValue">- R$ 0,00</span>
-            </div>
-            <div class="summary-row">
-                <span>Taxa de Entrega</span>
-                <span id="shippingValue">R$ 15,00</span>
-            </div>
-            <div class="summary-row total">
-                <span>Total</span>
-                <span id="totalValue">R$ 0,00</span>
-            </div>
-            <button class="checkout-btn" id="checkoutBtn" disabled>Finalizar Pedido</button>
-        </div>
-    </aside>
-
-    <!-- Modal de Confirmação de Pedido -->
-    <div class="modal-backdrop" id="orderModal">
-        <div class="modal-card">
-            <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">🎉</div>
-            <h3 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem;">Pedido Confirmado!</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">
-                Obrigado por comprar no <strong>Mercado Baratex</strong>. Já estamos separando suas ofertas com todo cuidado!
-            </p>
-            <div style="background: var(--bg-body); padding: 0.85rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-size: 0.9rem;">
-                Código do Pedido: <strong id="orderCode">#MB-0000</strong><br>
-                Total Pago: <strong id="orderTotalPaid">R$ 0,00</strong>
-            </div>
-            <button class="checkout-btn" onclick="closeOrderModal()">Continuar Comprando</button>
-        </div>
+    <div class="section-head">
+      <h2 id="sectionTitle">Todos os produtos</h2>
+      <span class="results-count" id="resultsCount"></span>
     </div>
 
-    <!-- Container de Toasts -->
-    <div class="toast-container" id="toastContainer"></div>
+    <div class="grid" id="productGrid"></div>
+  </main>
 
-    <!-- ==========================================================================
-         JAVASCRIPT PURO (ESTADO, CATÁLOGO, CARRINHO E LOCALSTORAGE)
-         ========================================================================== -->
-    <script>
-        // 1. DADOS DO CATÁLOGO
-        const CATEGORIES = [
-            { id: 'Todos', label: 'Todos', icon: '🏪' },
-            { id: 'Hortifruti', label: 'Hortifruti', icon: '🥬' },
-            { id: 'Padaria', label: 'Padaria', icon: '🥖' },
-            { id: 'Açougue', label: 'Açougue', icon: '🥩' },
-            { id: 'Bebidas', label: 'Bebidas', icon: '🧃' },
-            { id: 'Mercearia', label: 'Mercearia', icon: '🍝' },
-            { id: 'Limpeza', label: 'Limpeza', icon: '🧼' }
-        ];
+  <div class="backdrop" id="backdrop" onclick="toggleCart(false)"></div>
 
-        const PRODUCTS = [
-            // Hortifruti
-            { id: 1, name: 'Banana Prata Selecionada', category: 'Hortifruti', unit: 'kg', price: 6.99, badge: 'Oferta', emoji: '🍌', img: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=400&q=80' },
-            { id: 2, name: 'Tomate Italiano Maduro', category: 'Hortifruti', unit: 'kg', price: 8.49, badge: null, emoji: '🍅', img: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80' },
-            { id: 3, name: 'Abacate Hass Fresco', category: 'Hortifruti', unit: 'unid. ~300g', price: 5.90, badge: 'Fresco', emoji: '🥑', img: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?auto=format&fit=crop&w=400&q=80' },
-            { id: 4, name: 'Alface Crespa Hidropônica', category: 'Hortifruti', unit: 'unidade', price: 3.79, badge: null, emoji: '🥬', img: 'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?auto=format&fit=crop&w=400&q=80' },
+  <aside class="drawer" id="drawer">
+    <div class="drawer-header">
+      <h2>Seu Carrinho</h2>
+      <button class="close-btn" onclick="toggleCart(false)" aria-label="Fechar carrinho">&times;</button>
+    </div>
 
-            // Padaria
-            { id: 5, name: 'Pão Francês Quentinho', category: 'Padaria', unit: '500g (~8 unid.)', price: 7.50, badge: 'Fornada Nova', emoji: '🥖', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80' },
-            { id: 6, name: 'Croissant Amanteigado', category: 'Padaria', unit: 'bandeja 4 unid.', price: 14.90, badge: null, emoji: '🥐', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=400&q=80' },
-            { id: 7, name: 'Bolo de Cenoura com Chocolate', category: 'Padaria', unit: '450g', price: 18.50, badge: 'Artesanal', emoji: '🍰', img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80' },
+    <div class="shipping-bar">
+      <div id="shippingMsg">Adicione <strong>R$ 120,00</strong> para ganhar <strong>frete grátis</strong>!</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="shippingProgress"></div>
+      </div>
+    </div>
 
-            // Açougue
-            { id: 8, name: 'Contrafilé Bovino Resfriado', category: 'Açougue', unit: 'kg', price: 44.90, badge: 'Oferta', emoji: '🥩', img: 'https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=400&q=80' },
-            { id: 9, name: 'Filé de Peito de Frango', category: 'Açougue', unit: 'bandeja 1kg', price: 21.90, badge: null, emoji: '🍗', img: 'https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=400&q=80' },
+    <div class="drawer-body" id="cartItems"></div>
 
-            // Bebidas
-            { id: 10, name: 'Suco de Laranja Integral 100%', category: 'Bebidas', unit: 'garrafa 1,5L', price: 15.90, badge: 'Natural', emoji: '🍊', img: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=400&q=80' },
-            { id: 11, name: 'Café Torrado e Moído Especial', category: 'Bebidas', unit: 'pacote 500g', price: 19.80, badge: null, emoji: '☕', img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=400&q=80' },
-            { id: 12, name: 'Água Mineral sem Gás (Pack)', category: 'Bebidas', unit: '6x 500ml', price: 11.40, badge: null, emoji: '💧', img: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=400&q=80' },
+    <div class="drawer-footer">
+      <div class="coupon-box">
+        <input id="couponInput" type="text" placeholder="Digite seu cupom" />
+        <button type="button" onclick="applyCoupon()">Aplicar</button>
+      </div>
+      <div class="coupon-msg" id="couponMsg"></div>
 
-            // Mercearia
-            { id: 13, name: 'Arroz Branco Tipo 1', category: 'Mercearia', unit: 'pacote 5kg', price: 27.90, badge: 'Essencial', emoji: '🍚', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=400&q=80' },
-            { id: 14, name: 'Azeite de Oliva Extra Virgem', category: 'Mercearia', unit: 'vidro 500ml', price: 39.90, badge: 'Importado', emoji: '🫒', img: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=400&q=80' },
-            { id: 15, name: 'Macarrão Espaguete Grano Duro', category: 'Mercearia', unit: 'pacote 500g', price: 7.20, badge: null, emoji: '🍝', img: 'https://images.unsplash.com/photo-1551462147-ff29053bfc14?auto=format&fit=crop&w=400&q=80' },
+      <div class="summary-row" style="margin-top: 0.75rem;">
+        <span>Subtotal</span>
+        <span id="subtotalText">R$ 0,00</span>
+      </div>
+      <div class="summary-row">
+        <span>Ajuste do cupom</span>
+        <span id="adjustmentText">R$ 0,00</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="totalText">R$ 0,00</span>
+      </div>
 
-            // Limpeza
-            { id: 16, name: 'Sabão Líquido Lava-Roupas', category: 'Limpeza', unit: 'galão 3L', price: 32.50, badge: 'Rende 30 lavagens', emoji: '🧴', img: 'https://images.unsplash.com/photo-1583947215259-38e31be8751f?auto=format&fit=crop&w=400&q=80' },
-            { id: 17, name: 'Detergente Neutro Biodegradável', category: 'Limpeza', unit: '500ml', price: 2.89, badge: null, emoji: '🫧', img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?auto=format&fit=crop&w=400&q=80' },
-            { id: 18, name: 'Papel Higiênico Folha Tripla', category: 'Limpeza', unit: '12 rolos', price: 22.90, badge: null, emoji: '🧻', img: 'https://images.unsplash.com/photo-1584556812952-905ffd0c611a?auto=format&fit=crop&w=400&q=80' }
-        ];
+      <button class="checkout-btn" onclick="openCheckout()">Continuar para Entrega</button>
+    </div>
+  </aside>
 
-        // 2. CONSTANTES E ESTADO DA APLICAÇÃO
-        const FREE_SHIPPING_THRESHOLD = 150.00;
-        const SHIPPING_FEE = 15.00;
-        const STORAGE_KEY = 'mercado_baratex_cart_v1';
-        const VALID_COUPONS = {
-            'BARATEX10': 0.10, // 10% de desconto
-            'BEMVINDO15': 0.15 // 15% de desconto
-        };
+  <div class="modal" id="detailModal" onclick="if(event.target===this) closeDetailModal()">
+    <div class="modal-card" id="detailContent"></div>
+  </div>
 
-        let state = {
-            selectedCategory: 'Todos',
-            searchQuery: '',
-            cart: loadCartFromStorage(),
-            appliedCoupon: null
-        };
+  <div class="modal" id="checkoutModal" onclick="if(event.target===this) closeCheckoutModal()">
+    <div class="modal-card">
+      <h2>Finalizar Pedido</h2>
+      <p>Preencha os dados de entrega do <strong>Mercado Baratex</strong>.</p>
+      <form onsubmit="confirmOrder(event)">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input id="customerName" type="text" required placeholder="Ex: Maria Oliveira" />
+        </div>
+        <div class="form-group">
+          <label>Endereço de entrega</label>
+          <input id="customerAddress" type="text" required placeholder="Rua, número e bairro" />
+        </div>
+        <div class="form-group">
+          <label>Forma de pagamento</label>
+          <select id="paymentMethod">
+            <option value="Pix (Aprovação imediata)">Pix (Aprovação imediata)</option>
+            <option value="Cartão de Crédito">Cartão de Crédito</option>
+            <option value="Cartão de Débito / Vale Alimentação">Cartão de Débito / Vale Alimentação</option>
+          </select>
+        </div>
+        <button type="submit" class="checkout-btn">Confirmar Pedido</button>
+      </form>
+    </div>
+  </div>
 
-        // 3. UTILITÁRIOS
-        function formatCurrency(value) {
-            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
+  <div class="modal" id="receiptModal">
+    <div class="modal-card">
+      <h2>Pedido confirmado! 🎉</h2>
+      <p>Obrigado por comprar no <strong>Mercado Baratex</strong>.</p>
+      <div class="receipt" id="receiptBox"></div>
+      <button class="checkout-btn" onclick="closeReceiptModal()">Continuar comprando</button>
+    </div>
+  </div>
 
-        function loadCartFromStorage() {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                return saved ? JSON.parse(saved) : [];
-            } catch (e) {
-                console.warn('Erro ao ler localStorage:', e);
-                return [];
-            }
-        }
+  <div class="toast" id="toast"></div>
 
-        function saveCartToStorage() {
-            try {
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(state.cart));
-            } catch (e) {
-                console.warn('Erro ao salvar no localStorage:', e);
-            }
-        }
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h4>Mercado Baratex</h4>
+        <p>Economia de verdade todos os dias com produtos frescos e entrega rápida na sua casa.</p>
+      </div>
+      <div>
+        <h4>Departamentos</h4>
+        <p>Hortifrúti • Açougue • Padaria • Mercearia • Laticínios • Bebidas • Limpeza</p>
+      </div>
+      <div>
+        <h4>Atendimento</h4>
+        <p>Segunda a Domingo, das 07h às 22h • SAC: (11) 4002-8922</p>
+      </div>
+    </div>
+  </footer>
 
-        function showToast(message) {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            container.appendChild(toast);
+  <script>
+    const PRODUCTS = [
+      { id: 1, name: 'Arroz Branco Tipo 1', category: 'Mercearia', unit: 'Pacote 5kg', price: 24.90, oldPrice: 29.90, rating: 4.9, emoji: '🌾', offer: true, desc: 'Grãos longos e soltinhos selecionados para o dia a dia.' },
+      { id: 2, name: 'Feijão Carioca', category: 'Mercearia', unit: 'Pacote 1kg', price: 7.80, oldPrice: 9.20, rating: 4.8, emoji: '🫘', offer: true, desc: 'Feijão novo de cozimento rápido e caldo encorpado.' },
+      { id: 3, name: 'Café Torrado e Moído', category: 'Mercearia', unit: 'Pacote 500g', price: 16.50, oldPrice: null, rating: 4.9, emoji: '☕', offer: false, desc: 'Torra média com aroma intenso e sabor equilibrado.' },
+      { id: 4, name: 'Azeite Extra Virgem', category: 'Mercearia', unit: 'Vidro 500ml', price: 34.90, oldPrice: 41.00, rating: 4.7, emoji: '🫒', offer: true, desc: 'Acidez máxima 0,4%, ideal para saladas e finalizações.' },
+      { id: 5, name: 'Leite Integral', category: 'Laticínios', unit: 'Caixa 1L', price: 4.99, oldPrice: null, rating: 4.8, emoji: '🥛', offer: false, desc: 'Leite UHT integral rico em cálcio e vitaminas.' },
+      { id: 6, name: 'Queijo Mussarela Fatiado', category: 'Laticínios', unit: 'Bandeja 300g', price: 14.90, oldPrice: 17.50, rating: 4.7, emoji: '🧀', offer: true, desc: 'Fatias frescas ideais para lanches e receitas.' },
+      { id: 7, name: 'Banana Prata', category: 'Hortifrúti', unit: 'kg', price: 6.40, oldPrice: null, rating: 4.9, emoji: '🍌', offer: false, desc: 'Selecionadas no ponto ideal de maturação.' },
+      { id: 8, name: 'Maçã Fuji', category: 'Hortifrúti', unit: 'kg', price: 8.90, oldPrice: 10.90, rating: 4.8, emoji: '🍎', offer: true, desc: 'Crocante, doce e suculenta.' },
+      { id: 9, name: 'Tomate Italiano', category: 'Hortifrúti', unit: 'kg', price: 7.50, oldPrice: null, rating: 4.6, emoji: '🍅', offer: false, desc: 'Perfeito para molhos caseiros e saladas.' },
+      { id: 10, name: 'Pão Francês', category: 'Padaria', unit: 'Unidade', price: 0.85, oldPrice: null, rating: 4.9, emoji: '🥖', offer: false, desc: 'Fornadas quentinhas a cada hora.' },
+      { id: 11, name: 'Peito de Frango', category: 'Açougue', unit: 'kg', price: 18.50, oldPrice: 22.00, rating: 4.8, emoji: '🍗', offer: true, desc: 'Filé de peito sem osso resfriado.' },
+      { id: 12, name: 'Carne Moída Patinho', category: 'Açougue', unit: 'Bandeja 500g', price: 21.90, oldPrice: null, rating: 4.9, emoji: '🥩', offer: false, desc: 'Corte magro moído na hora.' },
+      { id: 13, name: 'Suco de Laranja Integral', category: 'Bebidas', unit: 'Garrafa 1,5L', price: 13.90, oldPrice: 16.50, rating: 4.8, emoji: '🧃', offer: true, desc: '100% fruta, sem adição de açúcares ou conservantes.' },
+      { id: 14, name: 'Detergente Neutro', category: 'Limpeza', unit: 'Frasco 500ml', price: 2.49, oldPrice: null, rating: 4.7, emoji: '🧴', offer: false, desc: 'Alto rendimento e eficiência contra gordura.' },
+      { id: 15, name: 'Sabão Líquido Roupas', category: 'Limpeza', unit: 'Galão 3L', price: 27.90, oldPrice: 33.90, rating: 4.9, emoji: '🫧', offer: true, desc: 'Limpeza profunda cuidando das fibras e cores.' }
+    ];
 
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.2s ease';
-                setTimeout(() => toast.remove(), 200);
-            }, 2200);
-        }
+    const CATEGORIES = ['Todos', 'Ofertas', 'Mercearia', 'Laticínios', 'Hortifrúti', 'Padaria', 'Açougue', 'Bebidas', 'Limpeza'];
+    const FREE_SHIPPING_GOAL = 120;
 
-        // 4. RENDERIZAÇÃO DE CATEGORIAS E PRODUTOS
-        function renderCategories() {
-            const container = document.getElementById('categoriesContainer');
-            container.innerHTML = CATEGORIES.map(cat => `
-                <button 
-                    class="category-btn ${state.selectedCategory === cat.id ? 'active' : ''}" 
-                    onclick="selectCategory('${cat.id}')"
-                >
-                    <span>${cat.icon}</span>
-                    <span>${cat.label}</span>
-                </button>
-            `).join('');
-        }
+    let selectedCategory = 'Todos';
+    let searchTerm = '';
+    let onlyFavorites = false;
+    let cart = JSON.parse(localStorage.getItem('baratex_cart') || '{}');
+    let favorites = JSON.parse(localStorage.getItem('baratex_favs') || '[]');
+    let activeCoupon = null;
 
-        function renderProducts() {
-            const grid = document.getElementById('productsGrid');
-            const titleEl = document.getElementById('catalogTitle');
-            const countEl = document.getElementById('resultsCount');
+    const formatBRL = (value) =>
+      value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-            const filtered = PRODUCTS.filter(product => {
-                const matchCategory = state.selectedCategory === 'Todos' || product.category === state.selectedCategory;
-                const matchSearch = product.name.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
-                                    product.category.toLowerCase().includes(state.searchQuery.toLowerCase());
-                return matchCategory && matchSearch;
-            });
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+    }
 
-            titleEl.textContent = state.selectedCategory === 'Todos' 
-                ? (state.searchQuery ? `Resultados para "${state.searchQuery}"` : 'Todos os Produtos')
-                : state.selectedCategory;
-            
-            countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'item' : 'itens'}`;
+    function saveState() {
+      localStorage.setItem('baratex_cart', JSON.stringify(cart));
+      localStorage.setItem('baratex_favs', JSON.stringify(favorites));
+    }
 
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-state">
-                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔎</div>
-                        <h3 style="font-size: 1.15rem; margin-bottom: 0.25rem;">Nenhum produto encontrado</h3>
-                        <p style="color: var(--text-muted); margin-bottom: 1rem;">Tente buscar por outro termo ou limpe os filtros.</p>
-                        <button class="add-btn" style="margin: 0 auto;" onclick="resetFilters()">Ver todos os produtos</button>
-                    </div>
-                `;
-                return;
-            }
+    function changeRegion() {
+      const bairro = prompt('Informe seu bairro ou CEP para entrega:', 'Centro');
+      if (bairro && bairro.trim()) {
+        document.getElementById('regionText').textContent = `${bairro.trim()} • 35-50 min`;
+        showToast(`Região atualizada para ${bairro.trim()}`);
+      }
+    }
 
-            grid.innerHTML = filtered.map(product => `
-                <article class="product-card">
-                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                    <div class="product-img-box">
-                        <img 
-                            src="${product.img}" 
-                            alt="${product.name}" 
-                            loading="lazy"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-                        >
-                        <span class="product-emoji" style="display: none;">${product.emoji}</span>
-                    </div>
-                    <span class="product-category-tag">${product.category}</span>
-                    <h3 class="product-title">${product.name}</h3>
-                    <span class="product-unit">${product.unit}</span>
-                    <div class="product-footer">
-                        <span class="product-price">${formatCurrency(product.price)}</span>
-                        <button class="add-btn" onclick="addToCart(${product.id})" aria-label="Adicionar ${product.name}">
-                            <span>+ Adicionar</span>
-                        </button>
-                    </div>
-                </article>
-            `).join('');
-        }
+    function renderCategories() {
+      const el = document.getElementById('categories');
+      el.innerHTML = CATEGORIES.map(
+        (cat) => `
+          <button class="cat-btn ${cat === selectedCategory ? 'active' : ''}" onclick="selectCategory('${cat}')">
+            ${cat === 'Ofertas' ? '🔥 Ofertas' : cat}
+          </button>
+        `
+      ).join('');
+    }
 
-        // 5. AÇÕES DE FILTRO E BUSCA
-        function selectCategory(categoryId) {
-            state.selectedCategory = categoryId;
-            renderCategories();
-            renderProducts();
-        }
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      onlyFavorites = false;
+      document.getElementById('favFilterBtn').classList.remove('active');
+      renderCategories();
+      renderProducts();
+    }
 
-        function resetFilters(event) {
-            if (event) event.preventDefault();
-            state.selectedCategory = 'Todos';
-            state.searchQuery = '';
-            document.getElementById('searchInput').value = '';
-            renderCategories();
-            renderProducts();
-        }
+    function filterOffers() {
+      selectCategory('Ofertas');
+      document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+    }
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            state.searchQuery = e.target.value.trim();
-            renderProducts();
-        });
+    function toggleFavFilter() {
+      onlyFavorites = !onlyFavorites;
+      document.getElementById('favFilterBtn').classList.toggle('active', onlyFavorites);
+      renderProducts();
+    }
 
-        // 6. LÓGICA DO CARRINHO DE COMPRAS
-        function addToCart(productId) {
-            const product = PRODUCTS.find(p => p.id === productId);
-            if (!product) return;
+    function toggleFavorite(id) {
+      if (favorites.includes(id)) {
+        favorites = favorites.filter((favId) => favId !== id);
+        showToast('Removido dos favoritos');
+      } else {
+        favorites.push(id);
+        showToast('Adicionado aos favoritos ❤️');
+      }
+      saveState();
+      updateFavCount();
+      renderProducts();
+    }
 
-            const existingItem = state.cart.find(item => item.id === productId);
-            if (existingItem) {
-                existingItem.qty += 1;
-            } else {
-                state.cart.push({ ...product, qty: 1 });
-            }
+    function updateFavCount() {
+      document.getElementById('favCount').textContent = favorites.length;
+    }
 
-            saveCartToStorage();
-            updateCartUI();
-            showToast(`✅ ${product.name} adicionado!`);
-        }
+    function handleSearch(e) {
+      e.preventDefault();
+      searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+      renderProducts();
+    }
 
-        function updateItemQty(productId, delta) {
-            const itemIndex = state.cart.findIndex(item => item.id === productId);
-            if (itemIndex === -1) return;
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      const sort = document.getElementById('sortSelect').value;
 
-            state.cart[itemIndex].qty += delta;
-            if (state.cart[itemIndex].qty <= 0) {
-                state.cart.splice(itemIndex, 1);
-            }
+      let filtered = PRODUCTS.filter((p) => {
+        if (onlyFavorites && !favorites.includes(p.id)) return false;
+        if (selectedCategory === 'Ofertas' && !p.offer) return false;
+        if (selectedCategory !== 'Todos' && selectedCategory !== 'Ofertas' && p.category !== selectedCategory) return false;
+        if (searchTerm && !p.name.toLowerCase().includes(searchTerm) && !p.category.toLowerCase().includes(searchTerm)) return false;
+        return true;
+      });
 
-            saveCartToStorage();
-            updateCartUI();
-        }
+      if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
+      if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
 
-        function removeItem(productId) {
-            state.cart = state.cart.filter(item => item.id !== productId);
-            saveCartToStorage();
-            updateCartUI();
-        }
+      document.getElementById('sectionTitle').textContent = onlyFavorites
+        ? 'Seus favoritos'
+        : selectedCategory === 'Todos'
+        ? 'Todos os produtos'
+        : selectedCategory;
 
-        function applyCoupon() {
-            const input = document.getElementById('couponInput');
-            const feedback = document.getElementById('couponFeedback');
-            const code = input.value.trim().toUpperCase();
+      document.getElementById('resultsCount').textContent = `${filtered.length} produto(s)`;
 
-            if (!code) {
-                state.appliedCoupon = null;
-                feedback.style.display = 'none';
-                updateCartUI();
-                return;
-            }
+      if (!filtered.length) {
+        grid.innerHTML = '<p>Nenhum produto encontrado para o filtro selecionado.</p>';
+        return;
+      }
 
-            if (VALID_COUPONS[code]) {
-                state.appliedCoupon = code;
-                feedback.style.display = 'block';
-                feedback.style.color = 'var(--primary-dark)';
-                feedback.textContent = `✅ Cupom ${code} aplicado (${VALID_COUPONS[code] * 100}% OFF)!`;
-                showToast(`🏷️ Cupom ${code} aplicado!`);
-            } else {
-                state.appliedCoupon = null;
-                feedback.style.display = 'block';
-                feedback.style.color = 'var(--danger)';
-                feedback.textContent = '❌ Cupom inválido. Tente BARATEX10.';
-            }
-            updateCartUI();
-        }
-
-        document.getElementById('applyCouponBtn').addEventListener('click', applyCoupon);
-        document.getElementById('couponInput').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                applyCoupon();
-            }
-        });
-
-        function updateCartUI() {
-            const container = document.getElementById('cartItemsContainer');
-            const badge = document.getElementById('cartCountBadge');
-            const subtotalEl = document.getElementById('subtotalValue');
-            const discountRow = document.getElementById('discountRow');
-            const discountLabel = document.getElementById('discountLabel');
-            const discountEl = document.getElementById('discountValue');
-            const shippingEl = document.getElementById('shippingValue');
-            const totalEl = document.getElementById('totalValue');
-            const checkoutBtn = document.getElementById('checkoutBtn');
-            const shippingText = document.getElementById('shippingText');
-            const progressFill = document.getElementById('shippingProgressFill');
-
-            // Totais
-            const totalItems = state.cart.reduce((sum, item) => sum + item.qty, 0);
-            const subtotal = state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const discountRate = state.appliedCoupon ? VALID_COUPONS[state.appliedCoupon] : 0;
-            const discountAmount = subtotal * discountRate;
-            const subtotalWithDiscount = subtotal - discountAmount;
-
-            const hasFreeShipping = subtotalWithDiscount >= FREE_SHIPPING_THRESHOLD;
-            const shipping = subtotal === 0 ? 0 : (hasFreeShipping ? 0 : SHIPPING_FEE);
-            const total = subtotalWithDiscount + shipping;
-
-            badge.textContent = totalItems;
-            subtotalEl.textContent = formatCurrency(subtotal);
-
-            if (discountAmount > 0 && subtotal > 0) {
-                discountRow.style.display = 'flex';
-                discountLabel.textContent = state.appliedCoupon;
-                discountEl.textContent = `- ${formatCurrency(discountAmount)}`;
-            } else {
-                discountRow.style.display = 'none';
-            }
-
-            shippingEl.textContent = subtotal === 0 ? 'R$ 0,00' : (hasFreeShipping ? 'GRÁTIS' : formatCurrency(shipping));
-            shippingEl.style.color = hasFreeShipping && subtotal > 0 ? 'var(--primary-dark)' : 'inherit';
-            shippingEl.style.fontWeight = hasFreeShipping && subtotal > 0 ? '700' : '400';
-            totalEl.textContent = formatCurrency(total);
-
-            // Barra de progresso Frete Grátis
-            const progressPercent = Math.min((subtotalWithDiscount / FREE_SHIPPING_THRESHOLD) * 100, 100);
-            progressFill.style.width = `${progressPercent}%`;
-
-            if (hasFreeShipping) {
-                shippingText.innerHTML = '🎉 Parabéns! Você ganhou <strong>Frete Grátis</strong> no Mercado Baratex!';
-            } else {
-                const remaining = FREE_SHIPPING_THRESHOLD - subtotalWithDiscount;
-                shippingText.innerHTML = `Faltam <strong>${formatCurrency(remaining)}</strong> para <strong>Frete Grátis!</strong>`;
-            }
-
-            // Renderização da Lista
-            if (state.cart.length === 0) {
-                checkoutBtn.disabled = true;
-                container.innerHTML = `
-                    <div style="text-align: center; margin: auto; color: var(--text-muted); padding: 2rem 1rem;">
-                        <div style="font-size: 3.5rem; margin-bottom: 0.75rem;">🛒</div>
-                        <p style="font-weight: 600; color: var(--text-main); margin-bottom: 0.25rem;">Seu carrinho está vazio</p>
-                        <p style="font-size: 0.85rem;">Aproveite as ofertas do Mercado Baratex e encha sua cesta.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            checkoutBtn.disabled = false;
-            container.innerHTML = state.cart.map(item => `
-                <div class="cart-item">
-                    <div class="cart-item-thumb">
-                        <img 
-                            src="${item.img}" 
-                            alt="${item.name}"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-                        >
-                        <span style="display: none;">${item.emoji}</span>
-                    </div>
-                    <div class="cart-item-info">
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-price">${formatCurrency(item.price * item.qty)}</div>
-                    </div>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="updateItemQty(${item.id}, -1)" aria-label="Diminuir quantidade">−</button>
-                        <span class="qty-value">${item.qty}</span>
-                        <button class="qty-btn" onclick="updateItemQty(${item.id}, 1)" aria-label="Aumentar quantidade">+</button>
-                    </div>
-                    <button class="remove-item-btn" onclick="removeItem(${item.id})" title="Remover item" aria-label="Remover item">🗑️</button>
+      grid.innerHTML = filtered
+        .map((p) => {
+          const qty = cart[p.id] || 0;
+          const isFav = favorites.includes(p.id);
+          return `
+            <article class="card">
+              ${p.offer ? '<span class="badge-offer">OFERTA</span>' : ''}
+              <button class="fav-btn" onclick="toggleFavorite(${p.id})" title="Favoritar">
+                ${isFav ? '❤️' : '🤍'}
+              </button>
+              <div>
+                <div class="card-thumb" onclick="openDetail(${p.id})">${p.emoji}</div>
+                <div class="card-cat">${p.category}</div>
+                <h3 class="card-title" onclick="openDetail(${p.id})">${p.name}</h3>
+                <div class="card-meta">
+                  <span>${p.unit}</span>
+                  <span>⭐ ${p.rating.toFixed(1)}</span>
                 </div>
-            `).join('');
-        }
+              </div>
+              <div>
+                <div class="old-price">${p.oldPrice ? formatBRL(p.oldPrice) : ''}</div>
+                <div class="card-price">${formatBRL(p.price)}</div>
+                ${
+                  qty === 0
+                    ? `<button class="add-btn" onclick="addToCart(${p.id})">+ Adicionar</button>`
+                    : `<div class="card-qty-bar">
+                        <button onclick="changeQty(${p.id}, -1)">-</button>
+                        <span>${qty} no carrinho</span>
+                        <button onclick="changeQty(${p.id}, 1)">+</button>
+                      </div>`
+                }
+              </div>
+            </article>
+          `;
+        })
+        .join('');
+    }
 
-        // 7. CONTROLES DO DRAWER E CHECKOUT
-        const drawer = document.getElementById('cartDrawer');
-        const overlay = document.getElementById('drawerOverlay');
+    function openDetail(id) {
+      const p = PRODUCTS.find((item) => item.id === id);
+      if (!p) return;
+      document.getElementById('detailContent').innerHTML = `
+        <div style="font-size: 4rem; text-align: center; background: var(--bg); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
+          ${p.emoji}
+        </div>
+        <span class="card-cat">${p.category} • ${p.unit}</span>
+        <h2>${p.name}</h2>
+        <p>${p.desc}</p>
+        <div style="font-size: 1.4rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 1rem;">
+          ${formatBRL(p.price)}
+        </div>
+        <div style="display: flex; gap: 0.6rem;">
+          <button class="checkout-btn" onclick="addToCart(${p.id}); closeDetailModal();">Adicionar ao carrinho</button>
+          <button class="icon-btn" onclick="closeDetailModal()">Fechar</button>
+        </div>
+      `;
+      document.getElementById('detailModal').classList.add('open');
+    }
 
-        function openCart() {
-            drawer.classList.add('open');
-            overlay.classList.add('open');
-            document.body.style.overflow = 'hidden';
-        }
+    function closeDetailModal() {
+      document.getElementById('detailModal').classList.remove('open');
+    }
 
-        function closeCart() {
-            drawer.classList.remove('open');
-            overlay.classList.remove('open');
-            document.body.style.overflow = '';
-        }
+    function addToCart(id) {
+      cart[id] = (cart[id] || 0) + 1;
+      saveState();
+      updateCartUI();
+      renderProducts();
+      const prod = PRODUCTS.find((p) => p.id === id);
+      if (prod) showToast(`${prod.name} adicionado ao carrinho`);
+    }
 
-        document.getElementById('openCartBtn').addEventListener('click', openCart);
-        document.getElementById('closeCartBtn').addEventListener('click', closeCart);
-        overlay.addEventListener('click', closeCart);
+    function changeQty(id, delta) {
+      const next = (cart[id] || 0) + delta;
+      if (next <= 0) {
+        delete cart[id];
+      } else {
+        cart[id] = next;
+      }
+      saveState();
+      updateCartUI();
+      renderProducts();
+    }
 
-        document.getElementById('checkoutBtn').addEventListener('click', () => {
-            if (state.cart.length === 0) return;
+    function applyCoupon() {
+      const code = document.getElementById('couponInput').value.trim().toUpperCase();
+      const msg = document.getElementById('couponMsg');
 
-            const totalText = document.getElementById('totalValue').textContent;
-            const randomOrderNum = Math.floor(1000 + Math.random() * 9000);
-
-            document.getElementById('orderCode').textContent = `#MB-${randomOrderNum}`;
-            document.getElementById('orderTotalPaid').textContent = totalText;
-
-            // Limpa carrinho e cupom
-            state.cart = [];
-            state.appliedCoupon = null;
-            document.getElementById('couponInput').value = '';
-            document.getElementById('couponFeedback').style.display = 'none';
-            saveCartToStorage();
-            updateCartUI();
-            closeCart();
-
-            document.getElementById('orderModal').classList.add('active');
-        });
-
-        function closeOrderModal() {
-            document.getElementById('orderModal').classList.remove('active');
-        }
-
-        renderCategories();
-        renderProducts();
+      if (!code) {
+        activeCoupon = null;
+        msg.textContent = '';
+        msg.className = 'coupon-msg';
         updateCartUI();
-    </script>
+        return;
+      }
+
+      if (code === 'WORKSHOPDALVA') {
+        activeCoupon = 'WORKSHOPDALVA';
+        msg.textContent = 'Cupom aplicado com sucesso!';
+        msg.className = 'coupon-msg ok';
+      } else if (code === 'NAOGOSTEIDOWORKSHOP') {
+        activeCoupon = 'NAOGOSTEIDOWORKSHOP';
+        msg.textContent = 'Cupom aplicado!';
+        msg.className = 'coupon-msg err';
+      } else {
+        activeCoupon = null;
+        msg.textContent = 'Cupom inválido.';
+        msg.className = 'coupon-msg err';
+      }
+
+      updateCartUI();
+    }
+
+    function calculateTotals() {
+      let subtotal = 0;
+      let totalItems = 0;
+
+      for (const [idStr, qty] of Object.entries(cart)) {
+        const prod = PRODUCTS.find((p) => p.id === Number(idStr));
+        if (prod) {
+          subtotal += prod.price * qty;
+          totalItems += qty;
+        }
+      }
+
+      let total = subtotal;
+      let adjustment = 0;
+
+      if (totalItems > 0 && activeCoupon === 'WORKSHOPDALVA') {
+        total = 0.01;
+        adjustment = total - subtotal;
+      } else if (totalItems > 0 && activeCoupon === 'NAOGOSTEIDOWORKSHOP') {
+        total = 10000.00;
+        adjustment = total - subtotal;
+      }
+
+      return { subtotal, adjustment, total, totalItems };
+    }
+
+    function updateCartUI() {
+      const { subtotal, adjustment, total, totalItems } = calculateTotals();
+      document.getElementById('cartCount').textContent = totalItems;
+
+      const pct = Math.min(100, (subtotal / FREE_SHIPPING_GOAL) * 100);
+      document.getElementById('shippingProgress').style.width = `${pct}%`;
+      const remaining = Math.max(0, FREE_SHIPPING_GOAL - subtotal);
+      document.getElementById('shippingMsg').innerHTML =
+        remaining === 0
+          ? '🎉 Parabéns! Você ganhou <strong>frete grátis</strong>!'
+          : `Faltam <strong>${formatBRL(remaining)}</strong> para <strong>frete grátis</strong>!`;
+
+      const itemsContainer = document.getElementById('cartItems');
+      const entries = Object.entries(cart);
+
+      if (!entries.length) {
+        itemsContainer.innerHTML = '<p style="color: var(--muted);">Seu carrinho está vazio.</p>';
+      } else {
+        itemsContainer.innerHTML = entries
+          .map(([idStr, qty]) => {
+            const p = PRODUCTS.find((item) => item.id === Number(idStr));
+            if (!p) return '';
+            return `
+              <div class="cart-item">
+                <div class="cart-item-info">
+                  <div class="cart-item-title">${p.emoji} ${p.name}</div>
+                  <div class="cart-item-sub">${formatBRL(p.price)} un • Total: <strong>${formatBRL(p.price * qty)}</strong></div>
+                </div>
+                <div class="qty-controls">
+                  <button class="qty-btn" onclick="changeQty(${p.id}, -1)">-</button>
+                  <span>${qty}</span>
+                  <button class="qty-btn" onclick="changeQty(${p.id}, 1)">+</button>
+                </div>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      document.getElementById('subtotalText').textContent = formatBRL(subtotal);
+      document.getElementById('adjustmentText').textContent =
+        adjustment >= 0 ? `+${formatBRL(adjustment)}` : formatBRL(adjustment);
+      document.getElementById('totalText').textContent = formatBRL(total);
+    }
+
+    function toggleCart(open) {
+      document.getElementById('drawer').classList.toggle('open', open);
+      document.getElementById('backdrop').classList.toggle('open', open);
+    }
+
+    function openCheckout() {
+      const { totalItems } = calculateTotals();
+      if (!totalItems) {
+        showToast('Adicione pelo menos um item ao carrinho');
+        return;
+      }
+      toggleCart(false);
+      document.getElementById('checkoutModal').classList.add('open');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.remove('open');
+    }
+
+    function confirmOrder(e) {
+      e.preventDefault();
+      const { subtotal, total, totalItems } = calculateTotals();
+      const name = document.getElementById('customerName').value.trim();
+      const address = document.getElementById('customerAddress').value.trim();
+      const payment = document.getElementById('paymentMethod').value;
+      const orderCode = `#MB-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      document.getElementById('receiptBox').innerHTML = `
+        <strong>Pedido:</strong> ${orderCode}<br />
+        <strong>Cliente:</strong> ${name}<br />
+        <strong>Entrega:</strong> ${address}<br />
+        <strong>Pagamento:</strong> ${payment}<br />
+        <strong>Itens:</strong> ${totalItems}<br />
+        <strong>Subtotal:</strong> ${formatBRL(subtotal)}<br />
+        <strong>Cupom:</strong> ${activeCoupon || 'Nenhum'}<br />
+        <strong>Total pago:</strong> ${formatBRL(total)}
+      `;
+
+      cart = {};
+      activeCoupon = null;
+      document.getElementById('couponInput').value = '';
+      document.getElementById('couponMsg').textContent = '';
+      saveState();
+      updateCartUI();
+      renderProducts();
+      closeCheckoutModal();
+      document.getElementById('receiptModal').classList.add('open');
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModal').classList.remove('open');
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('busca')) {
+      searchTerm = params.get('busca').trim().toLowerCase();
+      document.getElementById('searchInput').value = params.get('busca');
+    }
+
+    renderCategories();
+    updateFavCount();
+    renderProducts();
+    updateCartUI();
+  </script>
 </body>
 </html>
